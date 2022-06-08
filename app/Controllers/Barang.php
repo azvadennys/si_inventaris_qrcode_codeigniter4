@@ -11,7 +11,10 @@ class Barang extends BaseController
 {
     public function __construct()
     {
-
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
         helper('html');
         $this->barang = new Barang_model();
         $this->gedung = new Gedung_model();

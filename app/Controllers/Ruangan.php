@@ -10,7 +10,10 @@ class Ruangan extends BaseController
 {
     public function __construct()
     {
-
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
         helper('html');
         $this->gedung = new Gedung_model();
         $this->ruangan = new Ruangan_model();
