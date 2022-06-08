@@ -91,4 +91,14 @@ class Gedung_model extends Model
         $this->db = \Config\Database::connect();
         return $this->db->table('tb_gedung')->where('id_gedung', $id)->delete();
     }
+    public function get_all_nama_gedung()
+    {
+        $this->db = \Config\Database::connect();
+        return $this->db->table('tb_gedung')->orderBy('nama_gedung', 'ASC')->get()->getResult();
+    }
+    public function count_ruangan_in_gedung($id)
+    {
+        $this->db = \Config\Database::connect();
+        return $this->db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah, g.nama_gedung')->join('tb_gedung g', 'g.id_gedung = r.id_gedung')->where('r.id_gedung', $id)->countAllResults();
+    }
 }

@@ -11,10 +11,12 @@ class Ruangan_model extends Model
     {
         $this->db = \Config\Database::connect();
         $orders = $this->db->query("
-            SELECT r.*, r.id_user as Penambah, g.nama_gedung
+            SELECT r.*, r.id_user as Penambah, g.nama_gedung,u.nama
             FROM tb_ruangan r
             JOIN tb_gedung g
 	            ON g.id_gedung = r.id_gedung
+         JOIN tb_user u
+	            ON u.id_user = r.id_user
             WHERE r.id_gedung = '$id'");
 
         return $orders->getResult();
@@ -28,6 +30,11 @@ class Ruangan_model extends Model
     {
         $this->db = \Config\Database::connect();
         return $this->db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah, g.nama_gedung')->join('tb_gedung g', 'g.id_gedung = r.id_gedung')->where('r.id_gedung', $id)->countAllResults();
+    }
+    public function count_barang_in_ruangan($id)
+    {
+        $this->db = \Config\Database::connect();
+        return $this->db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah')->join('tb_barang b', 'b.id_ruangan = r.id_ruangan')->where('r.id_ruangan', $id)->countAllResults();
     }
 
     public function get_all_ruangan($limit, $start)
@@ -65,31 +72,42 @@ class Ruangan_model extends Model
     public function is_ruangan_exist($id)
     {
         $this->db = \Config\Database::connect();
-        return ($this->db->table('tb_ruangan')->where('id', $id)->countAllResults() > 0) ? TRUE : FALSE;
+        return ($this->db->table('tb_ruangan')->where('id_ruangan', $id)->countAllResults() > 0) ? TRUE : FALSE;
     }
 
     public function ruangan_data($id)
     {
-        $this->db = \Config\Database::connect();
-        $data = $this->db->query("
-            SELECT * FROM tb_ruangan 
-            WHERE tb_ruangan.id_ruangan = '$id'
-        ")->getRow();
+        // $this->db = \Config\Database::connect();
+        // $data = $this->db->query("
+        //     SELECT * FROM tb_ruangan 
+        //     WHERE tb_ruangan.id_ruangan = '$id'
+        // ")->getRow();
 
-        return $data;
+        // return $data;
+        $this->db = \Config\Database::connect();
+        $orders = $this->db->query("
+            SELECT r.*, r.id_user as Penambah, g.nama_gedung,u.nama
+            FROM tb_ruangan r
+            JOIN tb_gedung g
+	            ON g.id_gedung = r.id_gedung
+         JOIN tb_user u
+	            ON u.id_user = r.id_user
+            WHERE r.id_ruangan = '$id'");
+
+        return $orders->getRow();
     }
 
     public function delete_ruangan_image($id)
     {
         $this->db = \Config\Database::connect();
-        return $this->db->table('tb_ruangan')->where('id', $id)->update(array('picture_name' => NULL));
+        return $this->db->table('tb_ruangan')->where('id_ruangan', $id)->update(array('foto' => NULL));
     }
 
     public function is_ruangan_have_image($id)
     {
         $this->db = \Config\Database::connect();
         $data = $this->ruangan_data($id);
-        $file = $data->picture_name;
+        $file = $data->foto;
         if ($file == NULL) {
             return FALSE;
         }
@@ -99,12 +117,18 @@ class Ruangan_model extends Model
     public function edit_ruangan($id, $ruangan)
     {
         $this->db = \Config\Database::connect();
-        return $this->db->table('tb_ruangan')->where('id', $id)->update($ruangan);
+
+        return $this->db->table('tb_ruangan')->where('id_ruangan', $id)->set($ruangan)->update();
     }
 
     public function delete_ruangan($id)
     {
         $this->db = \Config\Database::connect();
-        return $this->db->table('tb_ruangan')->where('id', $id)->delete();
+        return $this->db->table('tb_ruangan')->where('id_ruangan', $id)->delete();
+    }
+    public function get_all_nama_ruangan()
+    {
+        $this->db = \Config\Database::connect();
+        return $this->db->table('tb_ruangan')->orderBy('nama_ruangan', 'ASC')->get()->getResult();
     }
 }

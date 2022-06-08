@@ -7,14 +7,14 @@
     <div class="header-body">
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
-          <h6 class="h2 text-white d-inline-block mb-0"><?php echo $gedung->nama_gedung; ?></h6>
+          <h6 class="h2 text-white d-inline-block mb-0"><?php echo $barang->nama_barang; ?></h6>
         </div>
         <div class="col-lg-6 col-5 text-right">
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
               <li class="breadcrumb-item"><a href="<?php echo base_url('/'); ?>"><i class="fas fa-home"></i></a></li>
-              <li class="breadcrumb-item"><a href="<?php echo base_url('gedung'); ?>">Gedung</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><?php echo $gedung->nama_gedung; ?></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url('barang'); ?>">Barang</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><?php echo $barang->nama_barang; ?></li>
             </ol>
           </nav>
         </div>
@@ -30,7 +30,7 @@
       <div class="card-wrapper">
         <div class="card">
           <div class="card-header">
-            <h3 class="mb-0">Data Gedung</h3>
+            <h3 class="mb-0">Data Barang</h3>
             <?php if ($flash) : ?>
               <span class="float-right text-success font-weight-bold" style="margin-top: -30px">
                 <?php echo $flash; ?>
@@ -39,29 +39,44 @@
           </div>
           <div class="card-body p-0">
             <div>
-              <img alt="<?php echo $gedung->nama_gedung; ?>" class="img img-fluid rounded" src="<?php if ($gedung->foto == NULL) {
-                                                                                                  echo base_url('assets/uploads/gedung/default.jpg');
+              <img alt="<?php echo $barang->nama_barang; ?>" class="img img-fluid rounded" src="<?php if ($barang->foto == NULL) {
+                                                                                                  echo base_url('assets/uploads/barang/default.jpg');
                                                                                                 } else {
-                                                                                                  echo base_url('assets/uploads/gedung/' . $gedung->foto);
+                                                                                                  echo base_url('assets/uploads/barang/' . $barang->foto);
                                                                                                 }  ?>">
             </div>
 
             <table class="table table-hover table-striped">
               <tr>
-                <td>Nama Gedung</td>
+                <td>Nama Barang</td>
                 <td>:</td>
-                <td><b><?php echo $gedung->nama_gedung; ?></b></td>
+                <td><b><?php echo $barang->nama_barang; ?></b></td>
               </tr>
               <tr>
-                <td>Total Ruangan</td>
+                <td>Tahun</td>
                 <td>:</td>
-                <td><b><?php echo $totalRuangan; ?></b></td>
+                <td><b><?php echo $barang->tahun; ?></b></td>
+              </tr>
+              <tr>
+                <td>Jumlah</td>
+                <td>:</td>
+                <td><b><?php echo $barang->jumlah; ?></b></td>
+              </tr>
+              <tr>
+                <td>Merek</td>
+                <td>:</td>
+                <td><b><?php echo $barang->merek; ?></b></td>
+              </tr>
+              <tr>
+                <td>Jenis</td>
+                <td>:</td>
+                <td><b><?php echo $barang->jenis; ?></b></td>
               </tr>
 
             </table>
           </div>
           <div class="card-footer text-right">
-            <a href="<?php echo base_url('gedung/edit/' . $gedung->id_gedung); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+            <a href="<?php echo base_url('barang/edit/' . $barang->id_barang); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
             <a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger"><i class="fa fa-trash"></i></a>
           </div>
 
@@ -73,7 +88,7 @@
     <div class="col-md-8">
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="mb-0">Data Ruangan Gedung</h3>
+          <h3 class="mb-0">Data Barang di Simpan</h3>
         </div>
         <div class="card-body p-0">
           <div class="table-responsive">
@@ -82,21 +97,29 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">NO</th>
-                  <th scope="col">Nama Ruangan</th>
-                  <th scope="col">Penambah Ruangan</th>
+                  <th scope="col">Nama Barang</th>
+                  <th scope="col">Tahun Barang</th>
+                  <th scope="col">Jumlah Barang</th>
+                  <th scope="col">Penambah Barang</th>
                 </tr>
               </thead>
               <tbody>
-                <?php $i = 1 ?>
-                <?php foreach ($ruangans as $ruangan) : ?>
-                  <tr>
-                    <th scope="col">
-                      <?php echo $i++; ?>
-                    </th>
-                    <td><?php echo anchor('ruangan/view/' . $ruangan->id_ruangan, $ruangan->nama_ruangan); ?></td>
-                    <td><?php echo $ruangan->nama; ?></td>
-                  </tr>
-                <?php endforeach; ?>
+                <? //php $i = 1 
+                ?>
+                <? //php foreach ($barangs as $barang) : 
+                ?>
+                <tr>
+                  <th scope="col">
+                    <? //php echo $i++; 
+                    ?>
+                  </th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <? //php endforeach; 
+                ?>
               </tbody>
             </table>
           </div>
@@ -116,7 +139,7 @@
         </div>
         <form action="#" id="deleteProductForm" method="POST">
 
-          <input type="hidden" name="id" value="<?php echo $gedung->id_gedung; ?>">
+          <input type="hidden" name="id" value="<?php echo $barang->id_barang; ?>">
 
           <div class="modal-body">
             <p class="deleteText">Yakin ingin menghapus produk ini? Semua data yang terkait seperti data order juga akan dihapus. Tindakan ini tidak dapat dibatalkan.</p>
@@ -141,7 +164,7 @@
 
       $.ajax({
         method: 'POST',
-        url: '<?php echo base_url('gedung/product_api?action=delete_product'); ?>',
+        url: '<?php echo base_url('barang/product_api?action=delete_product'); ?>',
         data: data,
         success: function(res) {
           if (res.code == 204) {
@@ -159,7 +182,7 @@
             }, 4000);
 
             setTimeout(function() {
-              window.location = '<?php echo base_url('gedung'); ?>';
+              window.location = '<?php echo base_url('barang'); ?>';
             }, 6000);
           } else {
             console.log('Terjadi kesalahan sata menghapus produk');

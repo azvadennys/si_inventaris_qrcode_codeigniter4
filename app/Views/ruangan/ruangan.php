@@ -7,10 +7,10 @@
     <div class="header-body">
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
-          <h6 class="h2 text-white d-inline-block mb-0">Kelola Gedung</h6>
+          <h6 class="h2 text-white d-inline-block mb-0">Kelola Ruangan</h6>
         </div>
         <div class="col-lg-6 col-5 text-right">
-          <a href="<?php echo base_url('gedung/tambah'); ?>" class="btn btn-sm btn-neutral">Tambah</a>
+          <a href="<?php echo base_url('ruangan/tambah'); ?>" class="btn btn-sm btn-neutral">Tambah</a>
         </div>
       </div>
     </div>
@@ -23,31 +23,31 @@
       <div class="card">
         <!-- Card header -->
         <div class="card-header">
-          <h3 class="mb-0">Kelola Gedung</h3>
+          <h3 class="mb-0">Kelola Ruangan</h3>
         </div>
 
-        <?php if (count($gedung) > 0) : ?>
+        <?php if (count($ruangan) > 0) : ?>
           <div class="card-body">
             <div class="row">
-              <?php foreach ($gedung as $gedungs) : ?>
+              <?php foreach ($ruangan as $ruangans) : ?>
                 <div class="col-md-3">
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h3 class="card-heading"><?php echo $gedungs['nama_gedung']; ?></h3>
+                      <h3 class="card-heading"><?php echo $ruangans['nama_ruangan']; ?></h3>
                     </div>
                     <div class="card-body">
                       <div class="text-center">
-                        <img alt="<?php echo $gedungs['nama_gedung']; ?>" class="img img-fluid rounded" src="<?php if ($gedungs['foto'] == NULL) {
-                                                                                                                echo base_url('assets/uploads/gedung/default.jpg');
-                                                                                                              } else {
-                                                                                                                echo base_url('assets/uploads/gedung/' . $gedungs['foto']);
-                                                                                                              } ?>" style="width: 1000px; max-height: 800px">
+                        <img alt="<?php echo $ruangans['nama_ruangan']; ?>" class="img img-fluid rounded" src="<?php if ($ruangans['foto'] == NULL) {
+                                                                                                                  echo base_url('assets/uploads/ruangan/default.jpg');
+                                                                                                                } else {
+                                                                                                                  echo base_url('assets/uploads/ruangan/' . $ruangans['foto']);
+                                                                                                                } ?>" style="width: 1000px; max-height: 800px">
                       </div>
 
                     </div>
                     <div class="card-footer text-center">
-                      <a href="<?php echo base_url('gedung/view/' . $gedungs['id_gedung']); ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
-                      <a href="<?php echo base_url('gedung/edit/' . $gedungs['id_gedung']); ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                      <a href="<?php echo base_url('ruangan/view/' . $ruangans['id_ruangan']); ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                      <a href="<?php echo base_url('ruangan/edit/' . $ruangans['id_ruangan']); ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                     </div>
                   </div>
                 </div>
@@ -62,11 +62,11 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="alert alert-primary">
-                  Belum ada data gedung yang ditambahkan. Silahkan menambahkan baru.
+                  Belum ada data ruangan yang ditambahkan. Silahkan menambahkan baru.
                 </div>
               </div>
               <div class="col-md-4">
-                <a href="<?php echo base_url('gedung/tambah'); ?>"><i class="fa fa-plus"></i> Tambah produk baru</a>
+                <a href="<?php echo base_url('ruangan/tambah'); ?>"><i class="fa fa-plus"></i> Tambah Ruangan baru</a>
               </div>
             </div>
           </div>
