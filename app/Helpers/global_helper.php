@@ -9,7 +9,13 @@
 
 use App\Controllers\Login;
 
-helper('auth');
+if (!function_exists('logged_in')) {
+
+    if (!session()->get('logged_in')) {
+        // maka redirct ke halaman login
+        return redirect()->to(base_url('auth'));
+    }
+}
 if (!function_exists('get_current_user_id')) {
     function get_current_user_id()
     {

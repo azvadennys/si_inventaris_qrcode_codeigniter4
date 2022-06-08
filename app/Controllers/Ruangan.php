@@ -23,6 +23,10 @@ class Ruangan extends BaseController
 
     public function index()
     {
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
         $pager = \Config\Services::pager();
 
         $data = [
@@ -36,6 +40,10 @@ class Ruangan extends BaseController
 
     public function tambah()
     {
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
         $gedung['title'] = 'Tambah Gedung Baru';
 
         $gedung['flash'] = $this->session->getFlashdata('add_new_product_flash');
@@ -83,6 +91,10 @@ class Ruangan extends BaseController
 
     public function edit($id = 0)
     {
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
         if ($this->ruangan->is_ruangan_exist($id)) {
             $data = $this->ruangan->ruangan_data($id);
 
@@ -162,6 +174,10 @@ class Ruangan extends BaseController
 
     public function product_api()
     {
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
         $action = $this->request->getGet('action');
 
         switch ($action) {
