@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Dompdf\Dompdf;
 use App\Models\Gedung_model;
 use App\Models\Barang_model;
 use App\Models\Ruangan_model;
@@ -13,6 +14,7 @@ class Barang extends BaseController
     {
 
         helper('html');
+        $this->dompdf = new Dompdf();
         $this->barang = new Barang_model();
         $this->gedung = new Gedung_model();
         $this->ruangan = new Ruangan_model();
@@ -35,7 +37,27 @@ class Barang extends BaseController
         ];
         return view('barang/barang', $data);
     }
+    public function pdf()
+    {
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
+        $pager = \Config\Services::pager();
 
+        $data = [
+            'title' => 'Barang',
+            'datas' => $this->barang->orderBy('nama_barang', 'ASC')->get()->getResult(),
+        ];
+        $html = view('barang/pdf', $data);
+
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->setPaper('A4', 'potrait');
+        $this->dompdf->render();
+        $this->dompdf->stream('Data Barang.pdf', array(
+            "Attachment" => false
+        ));
+    }
 
     public function tambah()
     {

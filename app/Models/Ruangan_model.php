@@ -37,10 +37,10 @@ class Ruangan_model extends Model
         return $this->db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah')->join('tb_barang b', 'b.id_ruangan = r.id_ruangan')->where('r.id_ruangan', $id)->countAllResults();
     }
 
-    public function get_all_ruangan($limit, $start)
+    public function get_all_ruangan()
     {
         $this->db = \Config\Database::connect();
-        $tb_ruangan = $this->db->table('tb_ruangan')->get($limit, $start)->getResult();
+        $tb_ruangan = $this->db->table('tb_ruangan')->get()->getResult();
 
         return $tb_ruangan;
     }

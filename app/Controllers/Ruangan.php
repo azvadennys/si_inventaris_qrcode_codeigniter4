@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Dompdf\Dompdf;
 use App\Models\Gedung_model;
 use App\Models\Ruangan_model;
 use CodeIgniter\Validation\Rules;
@@ -15,12 +16,33 @@ class Ruangan extends BaseController
             return redirect()->to(base_url('auth'));
         }
         helper('html');
+        $this->dompdf = new Dompdf();
         $this->gedung = new Gedung_model();
         $this->ruangan = new Ruangan_model();
         $this->validation =  \Config\Services::validation();
         $this->session = session();
     }
+    public function pdf()
+    {
+        if (!session()->get('logged_in')) {
+            // maka redirct ke halaman login
+            return redirect()->to(base_url('auth'));
+        }
+        $pager = \Config\Services::pager();
 
+        $data = [
+            'title' => ' Data Ruangan',
+            'datas' => $this->ruangan->orderBy('nama_ruangan', 'ASC')->get()->getResult(),
+        ];
+        $html = view('ruangan/pdf', $data);
+
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->setPaper('A4', 'potrait');
+        $this->dompdf->render();
+        $this->dompdf->stream('Data Ruangan.pdf', array(
+            "Attachment" => false
+        ));
+    }
     public function index()
     {
         if (!session()->get('logged_in')) {

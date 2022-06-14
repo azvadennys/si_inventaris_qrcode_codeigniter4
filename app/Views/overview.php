@@ -20,14 +20,14 @@
       </div>
       <!-- Card stats -->
       <div class="row">
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Produk</h5>
-                  <span class="h2 font-weight-bold mb-0"><?//php echo $total_products; ?></span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Barang</h5>
+                  <span class="h2 font-weight-bold mb-0"><?php echo $barang; ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -37,19 +37,19 @@
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                <span class="text-nowrap">Jumlah produk yang tersedia</span>
+                <span class="text-nowrap">Jumlah Barang yang tersedia</span>
               </p>
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Pelanggan</h5>
-                  <span class="h2 font-weight-bold mb-0"><?//php echo $total_customers; ?></span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Barang Masuk</h5>
+                  <span class="h2 font-weight-bold mb-0"><?php echo $masuk; ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -59,19 +59,19 @@
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                <span class="text-nowrap">Pelanggan yang terdaftar</span>
+                <span class="text-nowrap">Barang Masuk yang terdaftar</span>
               </p>
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Pesanan</h5>
-                  <span class="h2 font-weight-bold mb-0"><?//php echo $total_order; ?></span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Gedung</h5>
+                  <span class="h2 font-weight-bold mb-0"><?php echo $gedung; ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -81,39 +81,88 @@
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                <span class="text-nowrap">Jumlah pesanan diterima</span>
+                <span class="text-nowrap">Gedung yang terdaftar</span>
               </p>
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Pendapatan</h5>
-                  <span class="h2 font-weight-bold mb-0">Rp <?//php echo format_rupiah($total_income); ?></span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-              <p class="mt-3 mb-0 text-sm">
-                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                <span class="text-nowrap">Total pendapatan</span>
-              </p>
-            </div>
-          </div>
-        </div>
+
+
       </div>
     </div>
   </div>
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+  <div class="row justify-content-center">
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <!-- Card body -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Ruangan</h5>
+              <span class="h2 font-weight-bold mb-0"><?php echo $ruangan; ?></span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                <i class="ni ni-money-coins"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+            <span class="text-nowrap">Ruangan yang terdaftar</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <!-- Card body -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Supplier</h5>
+              <span class="h2 font-weight-bold mb-0"><?php echo $supplier; ?></span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                <i class="ni ni-money-coins"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+            <span class="text-nowrap">Supplier yang terdaftar</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-md-6">
+      <div class="card card-stats">
+        <!-- Card body -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Penyimpanan</h5>
+              <span class="h2 font-weight-bold mb-0"><?php echo $penyimpanan; ?></span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                <i class="ni ni-money-coins"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mt-3 mb-0 text-sm">
+            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
+            <span class="text-nowrap">Penyimpanan yang terdaftar</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <?= $this->include('footer') ?>
-  <?= $this->endSection(); ?>
+</div>
+<?= $this->include('footer') ?>
+<?= $this->endSection(); ?>

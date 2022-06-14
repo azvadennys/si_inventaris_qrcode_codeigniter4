@@ -77,23 +77,57 @@ $query = $this->request->getGet('search_query');
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url('/'); ?>">
+              <a class="nav-link" href="<?php echo base_url('supplier'); ?>">
                 <i class="fa fa-box text-info"></i>
                 <span class="nav-link-text">Supplier</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url('/'); ?>">
+              <a class="nav-link" href="<?php echo base_url('penyimpanan'); ?>">
                 <i class="fa fa-database text-warning"></i>
                 <span class="nav-link-text">Penyimpanan</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url('/'); ?>">
+              <a class="nav-link" href="<?php echo base_url('barangmasuk'); ?>">
                 <i class="fa fa-inbox text-info"></i>
                 <span class="nav-link-text">Barang Masuk</span>
               </a>
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-file-pdf text-primary"></i>
+                <span class="nav-link-text">Laporan</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header noti-title">
+                  <h6 class="text-overflow m-0">Cetak Laporan!</h6>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="" class="dropdown-item" onclick="window.open('<?= base_url('barang/pdf') ?>');">
+                  <span>Laporan Barang</span>
+                </a>
+                <a href="" class="dropdown-item" onclick="window.open('<?= base_url('barangmasuk/pdf') ?>');">
+                  <span>Laporan Barang Masuk</span>
+                </a>
+                <a href="" class="dropdown-item" onclick="window.open('<?= base_url('gedung/pdf') ?>');">
+                  <span>Laporan Gedung</span>
+                </a>
+                <a href="" class="dropdown-item" onclick="window.open('<?= base_url('ruangan/pdf') ?>');">
+                  <span>Laporan Ruangan</span>
+                </a>
+                <a href="" class="dropdown-item" onclick="window.open('<?= base_url('penyimpanan/pdf') ?>');">
+                  <span>Laporan Penyimpanan</span>
+                </a>
+                <a href="" class="dropdown-item" onclick="window.open('<?= base_url('supplier/pdf') ?>');">
+                  <span>Laporan Supplier</span>
+                </a>
+              </div>
+            </li>
+
+            <script>
+
+            </script>
           </ul>
         </div>
       </div>
@@ -106,74 +140,63 @@ $query = $this->request->getGet('search_query');
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Search form -->
-          <?php if (get_controller() == 'orders') : ?>
-            <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main" action="<?php echo base_url('admin_orders'); ?>" required>
-            <?php else : ?>
-              <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main" action="<?php echo base_url('admin_products/search'); ?>" required>
-              <?php endif; ?>
-              <div class="form-group mb-0">
-                <div class="input-group input-group-alternative input-group-merge">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                  </div>
-                  <input class="form-control" value="<?php echo (isset($query) ? $query : ''); ?>" name="search_query" placeholder="Cari ..." type="text" required>
+          <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main" method="GET" action="#" required>
+
+            <div class="form-group mb-0">
+              <div class="input-group input-group-alternative input-group-merge">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" value="<?php echo (isset($query) ? $query : ''); ?>" name="search_query" placeholder="Cari ..." type="text" required>
+              </div>
+            </div>
+            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </form>
+          <!-- Navbar links -->
+          <ul class="navbar-nav align-items-center ml-md-auto">
+            <li class="nav-item d-xl-none">
+              <!-- Sidenav toggler -->
+              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
                 </div>
               </div>
-              <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-              </form>
-              <!-- Navbar links -->
-              <ul class="navbar-nav align-items-center ml-md-auto">
-                <li class="nav-item d-xl-none">
-                  <!-- Sidenav toggler -->
-                  <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
-                    <div class="sidenav-toggler-inner">
-                      <i class="sidenav-toggler-line"></i>
-                      <i class="sidenav-toggler-line"></i>
-                      <i class="sidenav-toggler-line"></i>
-                    </div>
-                  </div>
-                </li>
-                <li class="nav-item d-sm-none">
-                  <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                    <i class="ni ni-zoom-split-in"></i>
-                  </a>
-                </li>
+            </li>
+            <li class="nav-item d-sm-none">
+              <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                <i class="ni ni-zoom-split-in"></i>
+              </a>
+            </li>
 
-              </ul>
-              <ul class="navbar-nav align-items-center ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="media align-items-center">
-                      <span class="avatar avatar-sm rounded-circle">
-                        <img src="<?php echo get_admin_image(); ?>">
-                      </span>
-                      <div class="media-body ml-2 d-none d-lg-block">
-                        <span class="mb-0 text-sm  font-weight-bold"><?php echo session()->get('nama') ?></span>
-                      </div>
-                    </div>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header noti-title">
-                      <h6 class="text-overflow m-0">Welcome!</h6>
-                    </div>
-                    <a href="<?php echo base_url('admin_settings/profile'); ?>" class="dropdown-item">
-                      <i class="ni ni-single-02"></i>
-                      <span>Profil</span>
-                    </a>
-                    <a href="<?php echo base_url('admin_settings'); ?>" class="dropdown-item">
-                      <i class="ni ni-settings-gear-65"></i>
-                      <span>Pengaturan</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="<?php echo base_url('auth/logout'); ?>" class="dropdown-item">
-                      <i class="ni ni-user-run"></i>
-                      <span>Logout</span>
-                    </a>
+          </ul>
+          <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="media align-items-center">
+                  <span class="avatar avatar-sm rounded-circle">
+                    <img src="<?php echo get_admin_image(); ?>">
+                  </span>
+                  <div class="media-body ml-2 d-none d-lg-block">
+                    <span class="mb-0 text-sm  font-weight-bold"><?php echo session()->get('nama') ?></span>
                   </div>
-                </li>
-              </ul>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header noti-title">
+                  <h6 class="text-overflow m-0">Welcome!</h6>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="<?php echo base_url('auth/logout'); ?>" class="dropdown-item">
+                  <i class="ni ni-user-run"></i>
+                  <span>Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

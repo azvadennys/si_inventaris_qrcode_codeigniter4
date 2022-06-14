@@ -1,35 +1,29 @@
 <?php
-// if (!function_exists('init')) {
-//     function init()
-//     {
-//         $CI = &get_instance();
-//         return $CI;
-//     }
-// }
 
 use App\Controllers\Login;
 
-if (!function_exists('logged_in')) {
 
-    if (!session()->get('logged_in')) {
-        // maka redirct ke halaman login
-        return redirect()->to(base_url('auth'));
-    }
-}
-if (!function_exists('get_current_user_id')) {
-    function get_current_user_id()
-    {
-        return (logged_in() ?  user_id() : redirect()->to('login'));
-        //return $login_data->user_id;
-    }
-}
-if (!function_exists('get_settings')) {
-    function get_settings($key = '')
+if (!function_exists('count_barang_in_ruangan')) {
+    function count_barang_in_ruangan($id)
     {
         $db = \Config\Database::connect();
-        $result = $db->query("
-        SELECT content FROM settings WHERE settings.key = '$key'")->getRow();
-        return $result->content;
+        return $db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah')->join('tb_barang b', 'b.id_ruangan = r.id_ruangan')->where('r.id_ruangan', $id)->countAllResults();
+    }
+}
+if (!function_exists('ruangan_data')) {
+function ruangan_data($id)
+    {
+        $db = \Config\Database::connect();
+        $orders = $db->query("
+            SELECT r.*, r.id_user as Penambah, g.nama_gedung,u.nama
+            FROM tb_ruangan r
+            JOIN tb_gedung g
+	            ON g.id_gedung = r.id_gedung
+         JOIN tb_user u
+	            ON u.id_user = r.id_user
+            WHERE r.id_ruangan = '$id'")->getRow();
+
+        return $orders->nama_gedung;
     }
 }
 if (!function_exists('format_rupiah')) {
@@ -38,7 +32,13 @@ if (!function_exists('format_rupiah')) {
         return number_format($rp, 2, ',', '.');
     }
 }
-
+if (!function_exists('count_ruangan_in_gedung')) {
+    function count_ruangan_in_gedung($id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah, g.nama_gedung')->join('tb_gedung g', 'g.id_gedung = r.id_gedung')->where('r.id_gedung', $id)->countAllResults();
+    }
+}
 function get_formatted_date($source_date)
 {
     $d = strtotime($source_date);
@@ -78,203 +78,16 @@ function get_formatted_date($source_date)
 
     return $date;
 }
-if (!function_exists('update_settings')) {
-    function update_settings($key, $new_content)
-    {
-        $db = \Config\Database::connect();
-        $builder = $db->table('settings');
-        $builder->set('content', $new_content);
-        $builder->where('key', $key);
-        $builder->update();
-    }
-}
-
-if (!function_exists('get_store_name')) {
-    function get_store_name()
-    {
-        return get_settings('store_name');
-    }
-}
 
 
 if (!function_exists('get_admin_image')) {
     function get_admin_image()
     {
-        // $profile_picture = user()->profile_picture;
-
-        // if (file_exists('assets/uploads/users/' . $profile_picture))
-        //     $file = $profile_picture;
-        // else
-        //     $file = 'admin.png';
-
         return base_url('assets/uploads/users/user.jpg');
     }
 }
 
-if (!function_exists('get_admin_name')) {
-    function get_admin_name()
-    {
-        $data = (logged_in() ?  user()->name : '');
 
-        return $data;
-    }
-}
-
-if (!function_exists('get_user_name')) {
-    function get_user_name()
-    {
-        $data = (logged_in() ?  user()->name : '');
-
-        return $data;
-    }
-}
-
-if (!function_exists('get_user_image')) {
-    function get_user_image()
-    {
-        $picture = user()->profile_picture;
-        $file = './assets/uploads/users/' . $picture;
-
-        if (file_exists('assets/uploads/users/' . $picture))
-            $picture_name = $picture;
-        else
-            $picture_name = 'user.jpg';
-
-        return base_url('assets/uploads/users/' . $picture_name);
-    }
-}
-
-if (!function_exists('get_store_logo')) {
-    function get_store_logo()
-    {
-        $file = get_settings('store_logo');
-        return base_url('assets/uploads/sites/' . $file);
-    }
-}
-
-
-
-if (!function_exists('create_product_sku')) {
-    function create_product_sku($name, $category, $price, $stock)
-    {
-        $name = create_acronym($name);
-        $category = create_acronym($category);
-        $price = create_acronym($price);
-        $stock = $stock;
-        $key = substr(time(), -3);
-
-        $sku =  $name . $category . $price . $stock . $key;
-        return $sku;
-    }
-}
-
-if (!function_exists('create_acronym')) {
-    function create_acronym($words)
-    {
-        $words = explode(' ', $words);
-        $acronym = '';
-
-        foreach ($words as $word) {
-            $acronym .= $word[0];
-        }
-
-        $acronym = strtoupper($acronym);
-
-        return $acronym;
-    }
-}
-
-if (!function_exists('count_percent_discount')) {
-    function count_percent_discount($discount, $from, $num = 1)
-    {
-        $count = ($discount / $from) * 100;
-        $count = number_format($count, $num);
-
-        return $count;
-    }
-}
-
-if (!function_exists('get_product_image')) {
-    function get_product_image($id)
-    {
-        $db = \Config\Database::connect();
-        // $builder = $db->table('products');
-        // $builder->select('*, product.id as productid');
-        // $builder->join('product_category', 'product_category.id = products.category_id');
-        // $builder->where('productid',$id);
-        // $query = $builder->get();
-        // return $query->getResultArray();
-        $data = $db->query("
-            SELECT p.*, pc.name as category_name
-            FROM products p
-            JOIN product_category pc
-                ON pc.id = p.category_id
-            WHERE p.id = '$id'
-        ")->getRow();
-
-        $picture_name = $data->picture_name;
-
-        if (!$picture_name)
-            $picture_name = 'default.jpg';
-
-        $file = './assets/uploads/products/' . $picture_name;
-
-        return base_url('assets/uploads/products/' . $picture_name);
-    }
-}
-
-if (!function_exists('get_order_status')) {
-    function get_order_status($status, $payment)
-    {
-        if ($payment == 1) {
-            // Bank
-            if ($status == 1)
-                return 'Menunggu pembayaran';
-            else if ($status == 2)
-                return 'Dalam proses';
-            else if ($status == 3)
-                return 'Dalam pengiriman';
-            else if ($status == 4)
-                return 'Selesai';
-            else if ($status == 5)
-                return 'Dibatalkan';
-        } else if ($payment == 2) {
-            //COD
-            if ($status == 1)
-                return 'Dalam proses';
-            else if ($status == 2)
-                return 'Dalam pengiriman';
-            else if ($status == 3)
-                return 'Selesai';
-            else if ($status == 4)
-                return 'Dibatalkan';
-        }
-    }
-}
-
-if (!function_exists('get_payment_status')) {
-    function get_payment_status($status)
-    {
-        if ($status == 1)
-            return 'Menunggu konfirmasi';
-        else if ($status == 2)
-            return 'Berhasil dikonfirmasi';
-        else if ($status == 3)
-            return 'Pembayaran tidak ditemukan';
-    }
-}
-
-if (!function_exists('get_contact_status')) {
-    function get_contact_status($status)
-    {
-        if ($status == 1)
-            return 'Belum dibaca';
-        else if ($status == 2)
-            return 'Sudah dibaca';
-        else if ($status == 3)
-            return 'Sudah dibalas';
-    }
-}
 
 if (!function_exists('get_month')) {
     function get_month($mo)
@@ -295,16 +108,5 @@ if (!function_exists('get_month')) {
         );
 
         return $months[$mo];
-    }
-}
-
-if (!function_exists('get_controller')) {
-    function get_controller()
-    {
-
-        $router = service('router');
-        $controller  = $router->controllerName();
-
-        return $controller;
     }
 }
