@@ -181,8 +181,10 @@
 			<thead>
 				<tr>
 					<th class="service">No</th>
+					<th class="left">Nama Toko</th>
 					<th class="left">Nama Supplier</th>
 					<th class="left">Kontak</th>
+					<th class="left">Alamat</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -191,8 +193,10 @@
 				?>
 					<tr>
 						<td><?php echo $i++; ?></td>
+						<td class="left"><?php echo $data->nama_toko; ?></td>
 						<td class="left"><?php echo $data->nama_supplier; ?></td>
 						<td class="left"><?php echo $data->kontak_supplier; ?></td>
+						<td class="left"><?php echo $data->alamat; ?></td>
 					</tr>
 				<?php endforeach;
 				?>
