@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jun 2022 pada 00.02
+-- Waktu pembuatan: 16 Jun 2022 pada 00.32
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.0.13
 
@@ -39,13 +39,6 @@ CREATE TABLE `tb_barang` (
   `jenis` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `tb_barang`
---
-
-INSERT INTO `tb_barang` (`id_barang`, `id_user`, `id_ruangan`, `nama_barang`, `tahun`, `jumlah`, `merek`, `foto`, `jenis`) VALUES
-(6, 1, 11, 'Kursi', '2020', 31, 'Sony', '24663379_A1_3.jpg', 'Kayu');
-
 -- --------------------------------------------------------
 
 --
@@ -58,14 +51,6 @@ CREATE TABLE `tb_gedung` (
   `id_user` int(11) NOT NULL,
   `foto` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_gedung`
---
-
-INSERT INTO `tb_gedung` (`id_gedung`, `nama_gedung`, `id_user`, `foto`) VALUES
-(3, 'gedung 3', 1, '24663379_A1.jpg'),
-(5, 'gedung 4', 2, 'c2139d2057e604f8c9cb41c83434e234.jpg');
 
 -- --------------------------------------------------------
 
@@ -82,13 +67,6 @@ CREATE TABLE `tb_menyimpan` (
   `barang_rusak` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `tb_menyimpan`
---
-
-INSERT INTO `tb_menyimpan` (`id_simpan`, `id_ruangan`, `id_barang`, `tgl_simpan`, `barang_bagus`, `barang_rusak`) VALUES
-(6, 11, 6, '2022-06-16', 321, 321);
-
 -- --------------------------------------------------------
 
 --
@@ -103,13 +81,6 @@ CREATE TABLE `tb_pbarangmasuk` (
   `jumlah` int(11) NOT NULL,
   `tgl_pembelian` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_pbarangmasuk`
---
-
-INSERT INTO `tb_pbarangmasuk` (`id_pengadaan`, `id_supplier`, `id_barang`, `harga`, `jumlah`, `tgl_pembelian`) VALUES
-(7, 6, 6, 25000, 241, '2022-06-16');
 
 -- --------------------------------------------------------
 
@@ -127,14 +98,6 @@ CREATE TABLE `tb_ruangan` (
   `terisi_ruangan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `tb_ruangan`
---
-
-INSERT INTO `tb_ruangan` (`id_ruangan`, `id_gedung`, `id_user`, `nama_ruangan`, `foto`, `kapasitas_ruangan`, `terisi_ruangan`) VALUES
-(10, 3, 1, 'ruangan 2', '24663379_A1_1.jpg', 12, 12),
-(11, 3, 1, 'ruangan 1', '24663379_A1_2.jpg', 21, 12);
-
 -- --------------------------------------------------------
 
 --
@@ -148,13 +111,6 @@ CREATE TABLE `tb_supplier` (
   `nama_toko` varchar(20) NOT NULL,
   `alamat` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_supplier`
---
-
-INSERT INTO `tb_supplier` (`id_supplier`, `nama_supplier`, `kontak_supplier`, `nama_toko`, `alamat`) VALUES
-(6, 'Wijaya', 2147483647, 'Toko Wijaya', 'Jalan veteran 2');
 
 -- --------------------------------------------------------
 
@@ -270,7 +226,7 @@ ALTER TABLE `tb_ruangan`
 -- AUTO_INCREMENT untuk tabel `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
