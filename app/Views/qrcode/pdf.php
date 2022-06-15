@@ -6,8 +6,8 @@
 	<title>Laporan <?= $title ?> - <?= get_formatted_date(date('Y-m-d')) ?> <?php echo date('h:i'); ?></title>
 
 	<link rel="icon" href=<?= base_url('assets/themes/argon/img/brand/favicon.png'); ?> type="image/png">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-	<link rel="stylesheet" href=<?= base_url('assets/themes/argon/css/argon9f1e.css?v=1.1.0'); ?> type="text/css">
 	<style>
 		.clearfix:after {
 			content: "";
