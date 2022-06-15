@@ -17,7 +17,8 @@ class Ruangan_model extends Model
 	            ON g.id_gedung = r.id_gedung
          JOIN tb_user u
 	            ON u.id_user = r.id_user
-            WHERE r.id_gedung = '$id'");
+            WHERE r.id_gedung = '$id'
+            ORDER BY `r`.`nama_ruangan` ASC ");
 
         return $orders->getResult();
     }

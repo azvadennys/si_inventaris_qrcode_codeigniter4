@@ -48,11 +48,11 @@
                 <div class="form-group">
                   <label class="form-control-label" for="id_supplier">Nama Supplier :</label>
                   <select name="id_supplier" class="form-control" id="id_supplier">
-                    <option value="<?= $masuk->id_supplier ?>"><?= $masuk->nama_supplier ?></option>
+                    <option value="<?= $masuk->id_supplier ?>"><?= $masuk->nama_supplier ?> - <?= $masuk->id_supplier ?></option>
                     <option>===========</option>
                     <?php if (count($suppliers) > 0) : ?>
                       <?php foreach ($suppliers as $supplier) : ?>
-                        <option value="<?php echo $supplier->id_supplier; ?>" <?php echo set_select('id_supplier', $supplier->id_supplier); ?>><?php echo $supplier->nama_supplier; ?></option>
+                        <option value="<?php echo $supplier->id_supplier; ?>" <?php echo set_select('id_supplier', $supplier->id_supplier); ?>><?php echo $supplier->nama_supplier; ?> - <?php echo $supplier->id_supplier; ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>
@@ -65,11 +65,11 @@
                 <div class="form-group">
                   <label class="form-control-label" for="id_barang">Nama Barang :</label>
                   <select name="id_barang" class="form-control" id="id_barang">
-                    <option value="<?= $masuk->id_barang ?>"><?= $masuk->nama_barang ?></option>
+                    <option value="<?= $masuk->id_barang ?>"><?= $masuk->nama_barang ?> - <?= $masuk->id_barang ?></option>
                     <option>===========</option>
                     <?php if (count($barangs) > 0) : ?>
                       <?php foreach ($barangs as $barang) : ?>
-                        <option value="<?php echo $barang->id_barang; ?>" <?php echo set_select('id_barang', $barang->id_barang); ?>><?php echo $barang->nama_barang; ?></option>
+                        <option value="<?php echo $barang->id_barang; ?>" <?php echo set_select('id_barang', $barang->id_barang); ?>><?php echo $barang->nama_barang; ?> - <?php echo $barang->id_barang; ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>

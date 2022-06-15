@@ -83,6 +83,9 @@
                 <tr>
                   <th scope="col">NO</th>
                   <th scope="col">Nama Ruangan</th>
+                  <th scope="col">Kapasitas Ruangan</th>
+                  <th scope="col">Terisi</th>
+                  <th scope="col">Tersedia</th>
                   <th scope="col">Penambah Ruangan</th>
                 </tr>
               </thead>
@@ -94,6 +97,9 @@
                       <?php echo $i++; ?>
                     </th>
                     <td><?php echo anchor('ruangan/view/' . $ruangan->id_ruangan, $ruangan->nama_ruangan); ?></td>
+                    <td><?php echo $ruangan->kapasitas_ruangan; ?></td>
+                    <td><?php echo $ruangan->terisi_ruangan; ?></td>
+                    <td><?php echo ($ruangan->kapasitas_ruangan - $ruangan->terisi_ruangan); ?></td>
                     <td><?php echo $ruangan->nama; ?></td>
                   </tr>
                 <?php endforeach; ?>

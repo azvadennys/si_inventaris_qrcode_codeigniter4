@@ -60,7 +60,7 @@
           </div>
           <div class="card-footer text-right">
             <a href="<?php echo base_url('barang/view/' . $barang->id_barang); ?>" class="btn btn-primary"><i class="fa fa-eye"></i> Lihat Barang</a>
-            <a href="<?php echo base_url('scan/pdf/' . $barang->id_barang); ?>" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Cetak PDF</a>
+            <a href="<?php echo base_url('scan/pdf/' . $barang->id_barang); ?>" target="_blank" class="btn btn-warning"><i class="fa fa-qrcode"></i> Cetak QRCode</a>
           </div>
         </div>
       </div>

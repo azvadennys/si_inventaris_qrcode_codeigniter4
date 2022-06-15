@@ -37,14 +37,15 @@ class Scan extends BaseController
             'title' => 'Cetak QRCode',
             'barang' => $this->barang->where('id_barang', $id)->get()->getRow(),
         ];
-        // return view('qrcode/pdf', $data);
-        $html = view('qrcode/pdf', $data);
+        return view('qrcode/pdf', $data);
+        // $html = view('qrcode/pdf', $data);
 
-        $this->dompdf->loadHtml($html);
-        $this->dompdf->setPaper('A4', 'potrait');
-        $this->dompdf->render();
-        $this->dompdf->stream('Data Barang.pdf', array(
-            "Attachment" => false
-        ));
+        // $this->dompdf->loadHtml($html);
+        // $this->dompdf->setPaper('A4', 'potrait');
+        // $this->dompdf->render();
+        // $this->dompdf->stream(); //Langsung download
+        // $this->dompdf->stream('Data Barang.pdf', array(
+        //     "Attachment" => false
+        // ));
     }
 }

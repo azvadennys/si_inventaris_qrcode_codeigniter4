@@ -11,7 +11,7 @@ if (!function_exists('count_barang_in_ruangan')) {
     }
 }
 if (!function_exists('ruangan_data')) {
-function ruangan_data($id)
+    function ruangan_data($id)
     {
         $db = \Config\Database::connect();
         $orders = $db->query("
@@ -37,6 +37,29 @@ if (!function_exists('count_ruangan_in_gedung')) {
     {
         $db = \Config\Database::connect();
         return $db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah, g.nama_gedung')->join('tb_gedung g', 'g.id_gedung = r.id_gedung')->where('r.id_gedung', $id)->countAllResults();
+    }
+}
+if (!function_exists('ruangan_in_gedung')) {
+    function ruangan_in_gedung($id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('tb_ruangan r')->select('r.*, r.id_user as Penambah, g.nama_gedung')->join('tb_gedung g', 'g.id_gedung = r.id_gedung')->where('r.id_gedung', $id)->orderBy('nama_ruangan', 'ASC')->get()->getResult();
+    }
+}
+if (!function_exists('barang_in_ruangan')) {
+    function barang_in_ruangan($id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('tb_menyimpan s')->select('s.*,b.nama_barang,b.merek,b.jenis')->join('tb_barang b', 'b.id_barang = s.id_barang')->where('s.id_ruangan', $id)->orderBy('nama_barang', 'ASC')->get()->getResult();
+    }
+}
+if (!function_exists('barang_masuk')) {
+    function barang_masuk($id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('tb_pbarangmasuk')->select('tb_pbarangmasuk.*,s.nama_toko, b.nama_barang')
+            ->join('tb_barang b', 'b.id_barang = tb_pbarangmasuk.id_barang')
+            ->join('tb_supplier s', 'tb_pbarangmasuk.id_supplier = s.id_supplier')->orderBy('b.nama_barang', 'ASC')->where('tb_pbarangmasuk.id_barang', $id)->get()->getResult();
     }
 }
 function get_formatted_date($source_date)

@@ -52,13 +52,14 @@ class Penyimpanan extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
+        $currentPage = $this->request->getVar('page_table') ? $this->request->getVar('page_table') : 1;
         $search_query = $this->request->getGet('search_query');
         if ($search_query) {
             $penyimpanan = $this->penyimpanan->select('id_simpan,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
                 ->join('tb_barang b', 'b.id_barang = tb_menyimpan.id_barang')
                 ->join('tb_ruangan r', 'b.id_ruangan = r.id_ruangan')->like('nama_barang', $search_query)->orlike('tahun', $search_query);
         } else {
-            $penyimpanan = $this->penyimpanan->select('id_simpan,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
+            $penyimpanan = $this->penyimpanan->select('id_simpan,tgl_simpan, b.nama_barang, b.jumlah, tahun, merek, r.nama_ruangan')
                 ->join('tb_barang b', 'b.id_barang = tb_menyimpan.id_barang')
                 ->join('tb_ruangan r', 'b.id_ruangan = r.id_ruangan');
         }
@@ -68,7 +69,8 @@ class Penyimpanan extends BaseController
             // 'barangs' => $this->barang->get_all_nama_barang(),
             'penyimpanans' => $penyimpanan->orderBy('tgl_simpan', 'DESC')->paginate(10, 'table'),
             'flash' => $this->session->getFlashdata('flash'),
-            'pager' => $this->penyimpanan->pager
+            'pager' => $this->penyimpanan->pager,
+            'currentPage' => $currentPage
         ];
         return view('menyimpan/menyimpan', $data);
     }
@@ -99,6 +101,14 @@ class Penyimpanan extends BaseController
                 'label' => 'ID Barang',
                 'rules' => 'required|numeric'
             ],
+            'barang_bagus' => [
+                'label' => 'Jumlah Barang Bagus',
+                'rules' => 'required|numeric'
+            ],
+            'barang_rusak' => [
+                'label' => 'Jumlah Barang Rusak',
+                'rules' => 'required|numeric'
+            ],
             'tgl_simpan' => [
                 'label' => 'Tanggal Simpan',
                 'rules' => 'required'
@@ -111,9 +121,13 @@ class Penyimpanan extends BaseController
         $id_ruangan = $this->request->getPost('id_ruangan');
         $id_barang = $this->request->getPost('id_barang');
         $tgl_simpan = $this->request->getPost('tgl_simpan');
+        $barang_bagus = $this->request->getPost('barang_bagus');
+        $barang_rusak = $this->request->getPost('barang_rusak');
         $simpan['id_ruangan'] = $id_ruangan;
         $simpan['id_barang'] = $id_barang;
         $simpan['tgl_simpan'] = $tgl_simpan;
+        $simpan['barang_bagus'] = $barang_bagus;
+        $simpan['barang_rusak'] = $barang_rusak;
         $this->penyimpanan->add_new_menyimpan($simpan);
         $this->session->setFlashdata('add_new_product_flash', 'Penyimpanan baru berhasil ditambahkan!');
 
@@ -129,7 +143,7 @@ class Penyimpanan extends BaseController
             return redirect()->to(base_url('auth'));
         }
         if ($this->penyimpanan->is_menyimpan_exist($id)) {
-            $data = $this->penyimpanan->select('id_simpan,tb_menyimpan.id_ruangan,tb_menyimpan.id_barang,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
+            $data = $this->penyimpanan->select('id_simpan,barang_bagus,barang_rusak,tb_menyimpan.id_ruangan,tb_menyimpan.id_barang,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
                 ->join('tb_barang b', 'b.id_barang = tb_menyimpan.id_barang')
                 ->join('tb_ruangan r', 'b.id_ruangan = r.id_ruangan')->where('id_simpan', $id)->get()->getRow();
             // dd($data);
@@ -161,6 +175,14 @@ class Penyimpanan extends BaseController
                 'label' => 'Tanggal Simpan',
                 'rules' => 'required'
             ],
+            'barang_bagus' => [
+                'label' => 'Jumlah Barang Bagus',
+                'rules' => 'required|numeric'
+            ],
+            'barang_rusak' => [
+                'label' => 'Jumlah Barang Rusak',
+                'rules' => 'required|numeric'
+            ],
 
         ]);
         if (!$validate) {
@@ -170,9 +192,13 @@ class Penyimpanan extends BaseController
         $id_ruangan = $this->request->getPost('id_ruangan');
         $id_barang = $this->request->getPost('id_barang');
         $tgl_simpan = $this->request->getPost('tgl_simpan');
+        $barang_bagus = $this->request->getPost('barang_bagus');
+        $barang_rusak = $this->request->getPost('barang_rusak');
         $simpan['id_ruangan'] = $id_ruangan;
         $simpan['id_barang'] = $id_barang;
         $simpan['tgl_simpan'] = $tgl_simpan;
+        $simpan['barang_bagus'] = $barang_bagus;
+        $simpan['barang_rusak'] = $barang_rusak;
         $this->penyimpanan->edit_menyimpan($id, $simpan);
         $this->session->setflashdata('flash', 'Penyimpanan berhasil diperbarui!');
 

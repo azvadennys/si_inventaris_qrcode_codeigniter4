@@ -49,7 +49,7 @@
                     <option>Pilih Supplier</option>
                     <?php if (count($suppliers) > 0) : ?>
                       <?php foreach ($suppliers as $supplier) : ?>
-                        <option value="<?php echo $supplier->id_supplier; ?>" <?php echo set_select('id_supplier', $supplier->id_supplier); ?>><?php echo $supplier->nama_supplier; ?></option>
+                        <option value="<?php echo $supplier->id_supplier; ?>" <?php echo set_select('id_supplier', $supplier->id_supplier); ?>><?php echo $supplier->nama_supplier; ?> - <?php echo $supplier->id_supplier; ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>
@@ -65,7 +65,7 @@
                     <option>Pilih Barang</option>
                     <?php if (count($barangs) > 0) : ?>
                       <?php foreach ($barangs as $barang) : ?>
-                        <option value="<?php echo $barang->id_barang; ?>" <?php echo set_select('id_barang', $barang->id_barang); ?>><?php echo $barang->nama_barang; ?></option>
+                        <option value="<?php echo $barang->id_barang; ?>" <?php echo set_select('id_barang', $barang->id_barang); ?>><?php echo $barang->nama_barang; ?> - <?php echo $barang->id_barang; ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>

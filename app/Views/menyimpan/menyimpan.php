@@ -54,35 +54,47 @@
                   <th scope="col">No</th>
                   <th scope="col">Nama Ruangan</th>
                   <th scope="col">Nama Barang</th>
-                  <th scope="col">Merek</th>
+                  <th scope="col">Merek Barang</th>
+                  <th scope="col">Jumlah Barang</th>
                   <th scope="col">Tanggal Simpan</th>
                   <th class="text-right">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($penyimpanans as $penyimpanan) : ?>
+                <?php $i = 1 + (10 * ($currentPage - 1)) ?>
+                <?php if (count($penyimpanans) > 0) : ?>
+                  <?php foreach ($penyimpanans as $penyimpanan) : ?>
+                    <tr>
+                      <th scope="col">
+                        <?php echo $i++; ?>
+                      </th>
+                      <td><?php echo $penyimpanan['nama_ruangan']; ?></td>
+                      <td>
+                        <?php echo $penyimpanan['nama_barang']; ?>
+                      </td>
+                      <td>
+                        <?php echo $penyimpanan['merek']; ?>
+                      </td>
+                      <td>
+                        <?php echo $penyimpanan['jumlah']; ?>
+                      </td>
+                      <td>
+                        <?php echo get_formatted_date($penyimpanan['tgl_simpan']); ?>
+                      </td>
+                      <td>
+                        <div class="text-right"><a href="<?= base_url('penyimpanan/edit/' . $penyimpanan['id_simpan']) ?>" class="btn btn-warning btn-sm btnEdit"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="<?= base_url('penyimpanan/hapus/' . $penyimpanan['id_simpan']) ?>" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash"> Delete</i></a>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else : ?>
                   <tr>
-                    <th scope="col">
-                      <?php echo $i++; ?>
-                    </th>
-                    <td><?php echo $penyimpanan['nama_ruangan']; ?></td>
-                    <td>
-                      <?php echo $penyimpanan['nama_barang']; ?>
-                    </td>
-                    <td>
-                      <?php echo $penyimpanan['merek']; ?>
-                    </td>
-                    <td>
-                      <?php echo get_formatted_date($penyimpanan['tgl_simpan']); ?>
-                    </td>
-                    <td>
-                      <div class="text-right"><a href="<?= base_url('penyimpanan/edit/' . $penyimpanan['id_simpan']) ?>" class="btn btn-warning btn-sm btnEdit"><i class="fa fa-edit"></i> Edit</a>
-                        <a href="<?= base_url('penyimpanan/hapus/' . $penyimpanan['id_simpan']) ?>" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash"> Delete</i></a>
-                      </div>
+                    <td colspan="7" class="text-center">
+                      <h2>Belum Ada Data Penyimpanan</h2>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
               </tbody>
             </table>
           </div>

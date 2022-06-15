@@ -113,6 +113,7 @@
 		table.items td {
 			padding: 20px;
 			text-align: center;
+			font-size: 15px;
 		}
 
 		table.items td.service,
@@ -178,25 +179,45 @@
 	</header>
 	<main>
 		<table class="items">
-			<thead>
-				<tr>
-					<th class="service">No</th>
-					<th class="left">Nama Gedung</th>
-					<th class="">Banyak Ruangan</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php $i = 1; ?>
-				<?php foreach ($datas as $data) :
-				?>
+			<?php foreach ($datas as $data) : ?>
+				<thead>
 					<tr>
-						<td><?php echo $i++; ?></td>
-						<td class="left"><?php echo $data->nama_gedung; ?></td>
-						<td class=""><?php echo count_ruangan_in_gedung($data->id_gedung); ?></td>
+						<!-- <th colspan="2" class="service">No</th> -->
+						<th colspan="2" class="">
+							<h3><?php echo strtoupper($data->nama_gedung); ?></h3>
+						</th>
+						<th class="">
+							<h3><?php echo strtoupper('Kapasitas'); ?></h3>
+						</th>
+						<th class="">
+							<h3><?php echo strtoupper('terisi'); ?></h3>
+						</th>
+						<th class="">
+							<h3><?php echo strtoupper('tersedia'); ?></h3>
+						</th>
 					</tr>
-				<?php endforeach;
-				?>
-			</tbody>
+				</thead>
+				<tbody>
+					<?php $i = 1; ?>
+					<?php $ruangans = ruangan_in_gedung($data->id_gedung) ?>
+					<?php if (count($ruangans) > 0) : ?>
+						<?php foreach ($ruangans as $ruangan) :
+						?>
+							<tr>
+								<td><?php echo $i++; ?></td>
+								<td class="left"><?php echo $ruangan->nama_ruangan; ?></td>
+								<td class=""><?php echo $ruangan->kapasitas_ruangan; ?></td>
+								<td class=""><?php echo $ruangan->terisi_ruangan; ?></td>
+								<td class=""><?php echo ($ruangan->kapasitas_ruangan - $ruangan->terisi_ruangan); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<tr>
+							<td colspan="5"> Belum Ada Data Ruangan</td>
+						</tr>
+					<?php endif; ?>
+				</tbody>
+			<?php endforeach; ?>
 		</table>
 	</main>
 	<footer>

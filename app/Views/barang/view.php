@@ -53,16 +53,6 @@
                 <td><b><?php echo $barang->nama_barang; ?></b></td>
               </tr>
               <tr>
-                <td>Tahun</td>
-                <td>:</td>
-                <td><b><?php echo $barang->tahun; ?></b></td>
-              </tr>
-              <tr>
-                <td>Jumlah</td>
-                <td>:</td>
-                <td><b><?php echo $barang->jumlah; ?></b></td>
-              </tr>
-              <tr>
                 <td>Merek</td>
                 <td>:</td>
                 <td><b><?php echo $barang->merek; ?></b></td>
@@ -89,7 +79,7 @@
     <div class="col-md-8">
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="mb-0">Data Barang di Simpan</h3>
+          <h3 class="mb-0">Data Barang Masuk dari Supplier</h3>
         </div>
         <div class="card-body p-0">
           <div class="table-responsive">
@@ -97,30 +87,34 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">NO</th>
-                  <th scope="col">Nama Barang</th>
-                  <th scope="col">Tahun Barang</th>
-                  <th scope="col">Jumlah Barang</th>
-                  <th scope="col">Penambah Barang</th>
+                  <th scope="col">No</th>
+                  <th scope="col">Nama Toko</th>
+                  <th scope="col">Total Harga</th>
+                  <th scope="col">Jumlah</th>
+                  <th scope="col">Tanggal Pembelian</th>
                 </tr>
               </thead>
               <tbody>
-                <? //php $i = 1 
-                ?>
-                <? //php foreach ($barangs as $barang) : 
-                ?>
-                <tr>
-                  <th scope="col">
-                    <? //php echo $i++; 
-                    ?>
-                  </th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <? //php endforeach; 
-                ?>
+                <?php $i = 1; ?>
+                <?php $masuks = barang_masuk($barang->id_barang) ?>
+                <?php if (count($masuks) > 0) : ?>
+                  <?php foreach ($masuks as $masuk) :
+                  ?>
+                    <tr>
+                      <td><?php echo $i++; ?></td>
+                      <td class="left"><a href="<?php echo base_url('supplier'); ?>"><?php echo $masuk->nama_toko; ?></a></td>
+                      <td class=""><?php echo $masuk->harga; ?></td>
+                      <td class=""><?php echo $masuk->jumlah; ?></td>
+                      <td class=""><?php echo $masuk->tgl_pembelian; ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else : ?>
+                  <tr>
+                    <td colspan="5" class="text-center">
+                      <h2>Belum Ada Data Barang Masuk</h2>
+                    </td>
+                  </tr>
+                <?php endif; ?>
               </tbody>
             </table>
           </div>

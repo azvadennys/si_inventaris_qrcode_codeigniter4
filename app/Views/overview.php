@@ -30,8 +30,8 @@
                   <span class="h2 font-weight-bold mb-0"><?php echo $barang; ?></span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                    <i class="ni ni-shop"></i>
+                  <div class="icon icon-shape bg-gradient-danger text-white rounded-circle shadow">
+                    <i class="fa fa-clipboard-list"></i>
                   </div>
                 </div>
               </div>
@@ -52,8 +52,8 @@
                   <span class="h2 font-weight-bold mb-0"><?php echo $masuk; ?></span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                    <i class="ni ni-circle-08"></i>
+                  <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                    <i class="fa fa-inbox"></i>
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                    <i class="ni ni-chart-bar-32"></i>
+                    <i class="ni ni-building"></i>
                   </div>
                 </div>
               </div>
@@ -105,8 +105,8 @@
               <span class="h2 font-weight-bold mb-0"><?php echo $ruangan; ?></span>
             </div>
             <div class="col-auto">
-              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                <i class="ni ni-money-coins"></i>
+              <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow">
+                <i class="fa fa-chalkboard"></i>
               </div>
             </div>
           </div>
@@ -127,8 +127,8 @@
               <span class="h2 font-weight-bold mb-0"><?php echo $supplier; ?></span>
             </div>
             <div class="col-auto">
-              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                <i class="ni ni-money-coins"></i>
+              <div class="icon icon-shape bg-gradient-primary text-white rounded-circle shadow">
+                <i class="fa fa-box"></i>
               </div>
             </div>
           </div>
@@ -149,8 +149,8 @@
               <span class="h2 font-weight-bold mb-0"><?php echo $penyimpanan; ?></span>
             </div>
             <div class="col-auto">
-              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                <i class="ni ni-money-coins"></i>
+              <div class="icon icon-shape bg-gradient-warning text-white rounded-circle shadow">
+                <i class="fa fa-database"></i>
               </div>
             </div>
           </div>

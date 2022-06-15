@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Laporan <?= $title ?> - <?= get_formatted_date(date('Y-m-d')) ?> <?php echo date('h:i'); ?></title>
+	<title><?= $title ?> - <?= get_formatted_date(date('Y-m-d')) ?> <?php echo date('h:i'); ?></title>
 
 	<link rel="icon" href=<?= base_url('assets/themes/argon/img/brand/favicon.png'); ?> type="image/png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -22,8 +22,8 @@
 
 		body {
 			position: relative;
-			/* width: 21cm; */
-			width: auto;
+			width: 21cm;
+			/* width: auto; */
 			height: 29.7cm;
 			margin: 0 auto;
 			color: #001028;
@@ -181,8 +181,9 @@
 	<main>
 		<div>
 			<input type="text" id="qr-data" value="<?= base_url('barang/view/' . $barang->id_barang); ?>" hidden>
-			<div id="qrcode" class="row justify-content-center">
-
+			<div class="row justify-content-center mb-5">
+				<h3 class="mb-5 text-center"><?= $barang->nama_barang ?></h3>
+				<div class="col-4" id="qrcode"></div>
 			</div>
 			<script>
 				var QRCode;
@@ -1288,9 +1289,7 @@
 				qrcode.makeCode(data);
 			</script>
 			<table class="table table-hover table-striped">
-				<tr>
-					<td>Link URL</td>
-					<td>:</td>
+				<tr class="text-center">
 					<td><b><a href="<?= base_url('barang/view/' . $barang->id_barang); ?>"><?= base_url('barang/view/' . $barang->id_barang); ?></a></td>
 				</tr>
 
@@ -1298,8 +1297,13 @@
 		</div>
 	</main>
 	<footer>
-		Laporan ini dicetak pada <?php echo get_formatted_date(date('Y-m-d H:i:s')); ?> <?php echo date('h:i'); ?> dan merupakan Laporan yang sah.
+		QRCode ini dicetak pada <?php echo get_formatted_date(date('Y-m-d H:i:s')); ?> <?php echo date('h:i'); ?> dan merupakan QRCode yang sah.
 	</footer>
 </body>
+<script>
+	window.onload = function() {
+		window.print();
+	}
+</script>
 
 </html>

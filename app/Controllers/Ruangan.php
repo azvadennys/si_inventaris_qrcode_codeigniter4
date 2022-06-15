@@ -72,7 +72,7 @@ class Ruangan extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $gedung['title'] = 'Tambah Gedung Baru';
-
+        $gedung['flash_error'] = $this->session->getflashdata('terisi_ruangan');
         $gedung['flash'] = $this->session->getFlashdata('add_new_product_flash');
         $gedung['gedungs'] = $this->gedung->get_all_nama_gedung();
 
@@ -91,7 +91,15 @@ class Ruangan extends BaseController
                     . '|is_image[picture]'
                     . '|mime_in[picture,image/jpg,image/jpeg,image/png,image/webp]'
                     . '|max_size[picture,2048]',
-            ]
+            ],
+            'kapasitas_ruangan' => [
+                'label' => 'Kapasitas Ruangan',
+                'rules' => 'required|numeric'
+            ],
+            'terisi_ruangan' => [
+                'label' => 'Terisi',
+                'rules' => 'required|numeric'
+            ],
         ]);
         if (!$validate) {
             return redirect()->back()->withInput();
@@ -99,7 +107,13 @@ class Ruangan extends BaseController
         $nama_ruangan = $this->request->getPost('nama_ruangan');
         $id_gedung = $this->request->getPost('id_gedung');
         $id_user = $this->request->getPost('id_user');
+        $kapasitas_ruangan = $this->request->getPost('kapasitas_ruangan');
+        $terisi_ruangan = $this->request->getPost('terisi_ruangan');
         $img = $this->request->getFile('picture');
+        if ($terisi_ruangan > $kapasitas_ruangan) {
+            $this->session->setFlashdata('terisi_ruangan', 'Terisi tidak boleh melebihi kapasitas ruangan');
+            return redirect()->back()->withInput();
+        }
         if ($img->getName() != 'default.jpg') {
             $img->move('assets/uploads/ruangan');
         }
@@ -107,6 +121,8 @@ class Ruangan extends BaseController
         $ruangan['nama_ruangan'] = $nama_ruangan;
         $ruangan['id_gedung'] = $id_gedung;
         $ruangan['id_user'] = $id_user;
+        $ruangan['kapasitas_ruangan'] = $kapasitas_ruangan;
+        $ruangan['terisi_ruangan'] = $terisi_ruangan;
         $ruangan['foto'] = $img->getName();
         $this->ruangan->add_new_ruangan($ruangan);
         $this->session->setFlashdata('add_new_product_flash', 'Produk baru berhasil ditambahkan!');
@@ -128,6 +144,7 @@ class Ruangan extends BaseController
             $ruangan['title'] = 'Edit ' . $data->nama_ruangan;
 
             $ruangan['flash'] = $this->session->getflashdata('edit_product_flash');
+            $ruangan['flash_error'] = $this->session->getflashdata('terisi_ruangan');
             $ruangan['ruangan'] = $data;
             $ruangan['gedungs'] = $this->gedung->get_all_nama_gedung();
 
@@ -149,16 +166,31 @@ class Ruangan extends BaseController
                 'label' => 'ID Gedung',
                 'rules' => 'required|numeric'
             ],
-
+            'kapasitas_ruangan' => [
+                'label' => 'Kapasitas Ruangan',
+                'rules' => 'required|numeric'
+            ],
+            'terisi_ruangan' => [
+                'label' => 'Terisi',
+                'rules' => 'required|numeric'
+            ],
         ]);
         if (!$validate) {
             return redirect()->back()->withInput();
         }
         $nama_ruangan = $this->request->getPost('nama_ruangan');
         $id_gedung = $this->request->getPost('id_gedung');
+        $kapasitas_ruangan = $this->request->getPost('kapasitas_ruangan');
+        $terisi_ruangan = $this->request->getPost('terisi_ruangan');
         $id = $this->request->getPost('id');
         $data = $this->ruangan->ruangan_data($id);
         $current_picture = $data->foto;
+
+        if ($terisi_ruangan > $kapasitas_ruangan) {
+            $this->session->setFlashdata('terisi_ruangan', 'Terisi tidak boleh melebihi kapasitas ruangan');
+            return redirect()->back()->withInput();
+        }
+
         if (isset($_FILES['picture']) && @$_FILES['picture']['error'] == '0') {
             $validate = $this->validate([
                 'picture' => [
@@ -192,6 +224,8 @@ class Ruangan extends BaseController
         $ruangan['nama_ruangan'] = $nama_ruangan;
         $ruangan['id_gedung'] = $id_gedung;
         $ruangan['foto'] = $file_name;
+        $ruangan['kapasitas_ruangan'] = $kapasitas_ruangan;
+        $ruangan['terisi_ruangan'] = $terisi_ruangan;
 
         $this->ruangan->edit_ruangan($id, $ruangan);
         $this->session->setflashdata('edit_product_flash', 'Produk berhasil diperbarui!');

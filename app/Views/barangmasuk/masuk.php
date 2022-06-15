@@ -61,32 +61,40 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($barangmasuks as $barangmasuk) : ?>
+                <?php $i = 1 + (10 * ($currentPage - 1)) ?>
+                <?php if (count($barangmasuks) > 0) : ?>
+                  <?php foreach ($barangmasuks as $barangmasuk) : ?>
+                    <tr>
+                      <th scope="col">
+                        <?php echo $i++; ?>
+                      </th>
+                      <td><?php echo $barangmasuk['nama_barang']; ?></td>
+                      <td>
+                        <?php echo $barangmasuk['nama_supplier']; ?>
+                      </td>
+                      <td>
+                        <?php echo $barangmasuk['harga']; ?>
+                      </td>
+                      <td>
+                        <?php echo $barangmasuk['jumlah']; ?>
+                      </td>
+                      <td>
+                        <?php echo get_formatted_date($barangmasuk['tgl_pembelian']); ?>
+                      </td>
+                      <td>
+                        <div class="text-right"><a href="<?= base_url('barangmasuk/edit/' . $barangmasuk['id_pengadaan']) ?>" class="btn btn-warning btn-sm btnEdit"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="<?= base_url('barangmasuk/hapus/' . $barangmasuk['id_pengadaan']) ?>" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash"> Delete</i></a>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else : ?>
                   <tr>
-                    <th scope="col">
-                      <?php echo $i++; ?>
-                    </th>
-                    <td><?php echo $barangmasuk['nama_barang']; ?></td>
-                    <td>
-                      <?php echo $barangmasuk['nama_supplier']; ?>
-                    </td>
-                    <td>
-                      <?php echo $barangmasuk['harga']; ?>
-                    </td>
-                    <td>
-                      <?php echo $barangmasuk['jumlah']; ?>
-                    </td>
-                    <td>
-                      <?php echo get_formatted_date($barangmasuk['tgl_pembelian']); ?>
-                    </td>
-                    <td>
-                      <div class="text-right"><a href="<?= base_url('barangmasuk/edit/' . $barangmasuk['id_pengadaan']) ?>" class="btn btn-warning btn-sm btnEdit"><i class="fa fa-edit"></i> Edit</a>
-                        <a href="<?= base_url('barangmasuk/hapus/' . $barangmasuk['id_pengadaan']) ?>" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash"> Delete</i></a>
-                      </div>
+                    <td colspan="7" class="text-center">
+                      <h2>Belum Ada Data Barang Masuk</h2>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
               </tbody>
             </table>
           </div>

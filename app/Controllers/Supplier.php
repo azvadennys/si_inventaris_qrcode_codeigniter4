@@ -50,18 +50,20 @@ class Supplier extends BaseController
             // maka redirct ke halaman login
             return redirect()->to(base_url('auth'));
         }
+        $currentPage = $this->request->getVar('page_table') ? $this->request->getVar('page_table') : 1;
         $pager = \Config\Services::pager();
         $search_query = $this->request->getGet('search_query');
         if ($search_query) {
-            $supplier = $this->supplier->like('nama_supplier', $search_query);
+            $supplier = $this->supplier->like('nama_toko', $search_query)->orlike('nama_supplier', $search_query);
         } else {
             $supplier = $this->supplier;
         }
         $data = [
             'title' => 'Kelola Supplier',
-            'suppliers' => $supplier->orderBy('nama_supplier', 'ASC')->paginate(10, 'table'),
+            'suppliers' => $supplier->orderBy('nama_toko', 'ASC')->paginate(10, 'table'),
             'flash' => $this->session->getFlashdata('flash'),
-            'pager' => $this->supplier->pager
+            'pager' => $this->supplier->pager,
+            'currentPage' => $currentPage
         ];
         return view('supplier/supplier', $data);
     }
@@ -91,6 +93,14 @@ class Supplier extends BaseController
                 'label' => 'Kontak Supplier',
                 'rules' => 'required|numeric'
             ],
+            'nama_toko' => [
+                'label' => 'Nama Toko',
+                'rules' => 'trim|required|min_length[4]|max_length[20]'
+            ],
+            'alamat' => [
+                'label' => 'Alamat',
+                'rules' => 'trim|required|min_length[4]|max_length[20]'
+            ],
         ]);
         if (!$validate) {
             return redirect()->back()->withInput();
@@ -98,8 +108,12 @@ class Supplier extends BaseController
 
         $nama_supplier = $this->request->getPost('nama_supplier');
         $kontak_supplier = $this->request->getPost('kontak_supplier');
+        $nama_toko = $this->request->getPost('nama_toko');
+        $alamat = $this->request->getPost('alamat');
         $supplier['nama_supplier'] = $nama_supplier;
         $supplier['kontak_supplier'] = $kontak_supplier;
+        $supplier['nama_toko'] = $nama_toko;
+        $supplier['alamat'] = $alamat;
         $this->supplier->add_new_supplier($supplier);
         $this->session->setFlashdata('add_new_product_flash', 'Supplier baru berhasil ditambahkan!');
 
@@ -140,7 +154,14 @@ class Supplier extends BaseController
                 'label' => 'Kontak Supplier',
                 'rules' => 'required|numeric'
             ],
-
+            'nama_toko' => [
+                'label' => 'Nama Toko',
+                'rules' => 'trim|required|min_length[4]|max_length[20]'
+            ],
+            'alamat' => [
+                'label' => 'Alamat',
+                'rules' => 'trim|required|min_length[4]|max_length[20]'
+            ],
         ]);
         if (!$validate) {
             return redirect()->back()->withInput();
@@ -148,8 +169,12 @@ class Supplier extends BaseController
         $id = $this->request->getPost('id');
         $nama_supplier = $this->request->getPost('nama_supplier');
         $kontak_supplier = $this->request->getPost('kontak_supplier');
+        $nama_toko = $this->request->getPost('nama_toko');
+        $alamat = $this->request->getPost('alamat');
         $supplier['nama_supplier'] = $nama_supplier;
         $supplier['kontak_supplier'] = $kontak_supplier;
+        $supplier['nama_toko'] = $nama_toko;
+        $supplier['alamat'] = $alamat;
 
         $this->supplier->edit_supplier($id, $supplier);
         $this->session->setflashdata('flash', 'Supplier berhasil diperbarui!');

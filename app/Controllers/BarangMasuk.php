@@ -51,6 +51,7 @@ class BarangMasuk extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
+        $currentPage = $this->request->getVar('page_table') ? $this->request->getVar('page_table') : 1;
         $search_query = $this->request->getGet('search_query');
         if ($search_query) {
             $barang = $this->masuk->select('tb_pbarangmasuk.*,s.nama_supplier, b.nama_barang')
@@ -67,7 +68,8 @@ class BarangMasuk extends BaseController
             // 'barangs' => $this->barang->get_all_nama_barang(),
             'barangmasuks' => $barang->orderBy('tgl_pembelian', 'DESC')->paginate(10, 'table'),
             'flash' => $this->session->getFlashdata('flash'),
-            'pager' => $this->masuk->pager
+            'pager' => $this->masuk->pager,
+            'currentPage' => $currentPage
         ];
         return view('barangmasuk/masuk', $data);
     }
@@ -210,7 +212,7 @@ class BarangMasuk extends BaseController
         }
         if ($this->masuk->is_masuk_exist($id)) {
             $this->masuk->delete_masuk($id);
-            $this->session->setflashdata('flash', 'Penyimpanan berhasil dihapus!');
+            $this->session->setflashdata('flash', 'Barang Masuk berhasil dihapus!');
             return redirect()->to(base_url('barangmasuk'));
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

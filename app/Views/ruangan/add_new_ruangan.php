@@ -62,6 +62,21 @@
               <input type="text" name="nama_ruangan" value="<?php echo set_value('nama_ruangan'); ?>" class="form-control" id="nama_ruangan">
               <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('nama_ruangan'); ?></div>
             </div>
+            <div class="form-group">
+              <label class="form-control-label" for="kapasitas_ruangan">Kapasitas Ruangan :</label>
+              <input type="number" name="kapasitas_ruangan" value="<?php echo set_value('kapasitas_ruangan'); ?>" class="form-control" id="kapasitas_ruangan">
+              <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('kapasitas_ruangan'); ?></div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="terisi_ruangan">Terisi :</label>
+              <input type="number" name="terisi_ruangan" value="<?php echo set_value('terisi_ruangan'); ?>" class="form-control" id="terisi_ruangan">
+              <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('terisi_ruangan'); ?></div>
+              <?php if ($flash_error) : ?>
+                <div class="form-error text-danger font-weight-bold">
+                  <?php echo $flash_error; ?>
+                </div>
+              <?php endif; ?>
+            </div>
             <input type="text" name="id_user" value="<?php echo session()->get('id_user') ?>" class="form-control" id="id_user" hidden>
           </div>
         </div>

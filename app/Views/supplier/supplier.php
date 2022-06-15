@@ -45,43 +45,63 @@
           </div>
 
         </div>
-
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush" id="customerList" style="width: 100%">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Kontak</th>
-                  <th class="text-right">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($suppliers as $supplier) : ?>
+        <?php if (count($suppliers) > 0) : ?>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush" id="customerList" style="width: 100%">
+                <thead class="thead-light">
                   <tr>
-                    <th scope="col">
-                      <?php echo $i++; ?>
-                    </th>
-                    <td><?php echo $supplier['nama_supplier']; ?></td>
-                    <td>
-                      <?php echo $supplier['kontak_supplier']; ?>
-                    </td>
-                    <td>
-                      <div class="text-right"><a href="<?= base_url('supplier/edit/' . $supplier['id_supplier']) ?>" class="btn btn-warning btn-sm btnEdit"><i class="fa fa-edit"></i> Edit</a>
-                        <a href="<?= base_url('supplier/hapus/' . $supplier['id_supplier']) ?>" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash"> Delete</i></a>
-                      </div>
-                    </td>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Toko</th>
+                    <th scope="col">Nama Supplier</th>
+                    <th scope="col">Kontak</th>
+                    <th scope="col">Alamat</th>
+                    <th class="text-right">Aksi</th>
                   </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <?php $i = 1 + (10 * ($currentPage - 1)) ?>
+                  <?php foreach ($suppliers as $supplier) : ?>
+                    <tr>
+                      <th scope="col">
+                        <?php echo $i++; ?>
+                      </th>
+                      <td><?php echo $supplier['nama_toko']; ?></td>
+                      <td>
+                        <?php echo $supplier['nama_supplier']; ?>
+                      </td>
+                      <td><?php echo $supplier['kontak_supplier']; ?></td>
+                      <td>
+                        <?php echo $supplier['alamat']; ?>
+                      </td>
+                      <td>
+                        <div class="text-right"><a href="<?= base_url('supplier/edit/' . $supplier['id_supplier']) ?>" class="btn btn-warning btn-sm btnEdit"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="<?= base_url('supplier/hapus/' . $supplier['id_supplier']) ?>" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash"> Delete</i></a>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <?php echo $pager->links('table', 'pagination'); ?>
-        </div>
+          <div class="card-footer">
+            <?php echo $pager->links('table', 'pagination'); ?>
+          </div>
+        <?php else : ?>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-primary">
+                  Belum ada data supplier yang ditambahkan. Silahkan menambahkan baru.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <a href="<?php echo base_url('supplier/tambah'); ?>"><i class="fa fa-plus"></i> Tambah Supplier baru</a>
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   </div>

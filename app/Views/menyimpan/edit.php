@@ -78,6 +78,16 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="form-control-label" for="barang_bagus">Jumlah Barang Bagus:</label>
+              <input type="number" name="barang_bagus" value="<?php echo (set_value('barang_bagus') == NULL) ? $penyimpanan->barang_bagus : set_value('barang_bagus'); ?>" class="form-control" id="barang_bagus">
+              <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('barang_bagus'); ?></div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="barang_rusak">Jumlah Barang Rusak:</label>
+              <input type="number" name="barang_rusak" value="<?php echo (set_value('barang_rusak') == NULL) ? $penyimpanan->barang_rusak : set_value('barang_rusak'); ?>" class="form-control" id="barang_rusak">
+              <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('barang_rusak'); ?></div>
+            </div>
+            <div class="form-group">
               <label class="form-control-label" for="tgl_simpan">Tanggal Simpan:</label>
               <input type="date" name="tgl_simpan" value="<?php echo (set_value('tgl_simpan') == NULL) ? $penyimpanan->tgl_simpan : set_value('tgl_simpan'); ?>" class="form-control" id="tgl_simpan">
               <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('tgl_simpan'); ?></div>

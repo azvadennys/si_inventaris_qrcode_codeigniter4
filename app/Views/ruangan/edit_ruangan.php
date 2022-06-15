@@ -48,10 +48,11 @@
                 <div class="form-group">
                   <label class="form-control-label" for="id_gedung">Nama Gedung :</label>
                   <select name="id_gedung" class="form-control" id="id_gedung">
-                    <option>Pilih Gedung</option>
+                    <option value="<?= $ruangan->id_gedung ?>"><?= $ruangan->nama_gedung ?> | ID : <?= $ruangan->id_gedung ?></option>
+                    <option disabled>_______________</option>
                     <?php if (count($gedungs) > 0) : ?>
                       <?php foreach ($gedungs as $gedung) : ?>
-                        <option value="<?php echo $gedung->id_gedung; ?>" <?php echo set_select('id_gedung', $gedung->id_gedung); ?>><?php echo $gedung->nama_gedung; ?></option>
+                        <option value="<?php echo $gedung->id_gedung; ?>" <?php echo set_select('id_gedung', $gedung->id_gedung); ?>><?php echo $gedung->nama_gedung; ?> | ID : <?php echo $gedung->id_gedung; ?></option>
                       <?php endforeach; ?>
                     <?php endif; ?>
                   </select>
@@ -65,6 +66,21 @@
               <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('nama_ruangan'); ?></div>
               <input type="text" name="id_user" value="<?php echo session()->get('id_user') ?>" class="form-control" id="id_user" hidden>
               <input type="text" name="id" value="<?php echo $ruangan->id_ruangan ?>" class="form-control" id="id" hidden>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="kapasitas_ruangan">Kapasitas Ruangan:</label>
+              <input type="text" name="kapasitas_ruangan" value="<?php echo set_value('kapasitas_ruangan', $ruangan->kapasitas_ruangan); ?>" class="form-control" id="kapasitas_ruangan">
+              <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('kapasitas_ruangan'); ?></div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="terisi_ruangan">Terisi:</label>
+              <input type="text" name="terisi_ruangan" value="<?php echo set_value('terisi_ruangan', $ruangan->terisi_ruangan); ?>" class="form-control" id="terisi_ruangan">
+              <div class="form-error text-danger font-weight-bold"> <?= $validation->getError('terisi_ruangan'); ?></div>
+              <?php if ($flash_error) : ?>
+                <div class="form-error text-danger font-weight-bold">
+                  <?php echo $flash_error; ?>
+                </div>
+              <?php endif; ?>
             </div>
           </div>
         </div>

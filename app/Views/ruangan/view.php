@@ -53,9 +53,19 @@
                 <td><b><?php echo $ruangan->nama_ruangan; ?></b></td>
               </tr>
               <tr>
-                <td>Gedung</td>
+                <td>Lokasi</td>
                 <td>:</td>
                 <td><b><?php echo $ruangan->nama_gedung; ?></b></td>
+              </tr>
+              <tr>
+                <td>Kapasitas</td>
+                <td>:</td>
+                <td><b><?php echo $ruangan->kapasitas_ruangan;; ?></b></td>
+              </tr>
+              <tr>
+                <td>Terisi</td>
+                <td>:</td>
+                <td><b><?php echo $ruangan->terisi_ruangan; ?></b></td>
               </tr>
               <tr>
                 <td>Total Barang</td>
@@ -88,24 +98,37 @@
                 <tr>
                   <th scope="col">NO</th>
                   <th scope="col">Nama Barang</th>
-                  <th scope="col">Tahun Barang</th>
-                  <th scope="col">Jumlah Barang</th>
-                  <th scope="col">Penambah Ruangan</th>
+                  <th scope="col">Merek Barang</th>
+                  <th scope="col">Jenis Barang</th>
+                  <th scope="col">Barang Bagus</th>
+                  <th scope="col">Barang Rusak</th>
+                  <th scope="col">Total Barang</th>
                 </tr>
               </thead>
               <tbody>
                 <?php $i = 1 ?>
-                <?php foreach ($ruangans as $ruangan) : ?>
+                <?php $barangs = barang_in_ruangan($ruangan->id_ruangan) ?>
+                <?php if (count($barangs) > 0) : ?>
+                  <?php foreach ($barangs as $barang) : ?>
+                    <tr>
+                      <th scope="col">
+                        <?php echo $i++; ?>
+                      </th>
+                      <td><?php echo  anchor('barang/view/' . $barang->id_barang, $barang->nama_barang); ?></td>
+                      <td><?php echo $barang->merek; ?></td>
+                      <td><?php echo $barang->jenis; ?></td>
+                      <td><?php echo $barang->barang_bagus; ?></td>
+                      <td><?php echo $barang->barang_rusak; ?></td>
+                      <td><?php echo ($barang->barang_rusak + $barang->barang_bagus); ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else : ?>
                   <tr>
-                    <th scope="col">
-                      <?php echo $i++; ?>
-                    </th>
-                    <td><?php echo $ruangan->Penambah; ?></td>
-                    <td><?php echo $ruangan->Penambah; ?></td>
-                    <td><?php echo anchor('ruangan/view/' . $ruangan->order_id, $ruangan->nama_ruangan); ?></td>
-                    <td><?php echo $ruangan->Penambah; ?></td>
+                    <td colspan="7" class="text-center">
+                      <h2>Belum Ada Data Barang</h2>
+                    </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
               </tbody>
             </table>
           </div>
