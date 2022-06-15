@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Jun 2022 pada 04.29
+-- Waktu pembuatan: 15 Jun 2022 pada 03.12
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.0.13
 
@@ -44,7 +44,8 @@ CREATE TABLE `tb_barang` (
 --
 
 INSERT INTO `tb_barang` (`id_barang`, `id_user`, `id_ruangan`, `nama_barang`, `tahun`, `jumlah`, `merek`, `foto`, `jenis`) VALUES
-(1, 2, 9, 'Kursi', '2020', 231, 'Sony', 'WhatsApp Image 2022-06-06 at 13.33.17_3.jpeg', 'Kayu');
+(1, 2, 9, 'Kursi', '2020', 231, 'Sony', 'WhatsApp Image 2022-06-06 at 13.33.17_3.jpeg', 'Kayu'),
+(3, 1, 9, 'Dadan', '2020', 123, 'fewfwefw', '24663379_A1.jpg', 'adsafawfw');
 
 -- --------------------------------------------------------
 
@@ -80,6 +81,14 @@ CREATE TABLE `tb_menyimpan` (
   `tgl_simpan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tb_menyimpan`
+--
+
+INSERT INTO `tb_menyimpan` (`id_simpan`, `id_ruangan`, `id_barang`, `tgl_simpan`) VALUES
+(1, 9, 1, '2022-06-08'),
+(3, 9, 1, '2022-06-04');
+
 -- --------------------------------------------------------
 
 --
@@ -92,9 +101,16 @@ CREATE TABLE `tb_pbarangmasuk` (
   `id_barang` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `tgl_pembelian` date NOT NULL,
-  `nama_barang` varchar(30) NOT NULL
+  `tgl_pembelian` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_pbarangmasuk`
+--
+
+INSERT INTO `tb_pbarangmasuk` (`id_pengadaan`, `id_supplier`, `id_barang`, `harga`, `jumlah`, `tgl_pembelian`) VALUES
+(2, 3, 1, 250000, 1, '2022-06-12'),
+(3, 3, 1, 250000, 3, '2022-06-30');
 
 -- --------------------------------------------------------
 
@@ -129,6 +145,13 @@ CREATE TABLE `tb_supplier` (
   `nama_supplier` varchar(20) NOT NULL,
   `kontak_supplier` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_supplier`
+--
+
+INSERT INTO `tb_supplier` (`id_supplier`, `nama_supplier`, `kontak_supplier`) VALUES
+(3, 'sdad', 214748364);
 
 -- --------------------------------------------------------
 
@@ -214,7 +237,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_gedung`
@@ -226,13 +249,13 @@ ALTER TABLE `tb_gedung`
 -- AUTO_INCREMENT untuk tabel `tb_menyimpan`
 --
 ALTER TABLE `tb_menyimpan`
-  MODIFY `id_simpan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_simpan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pbarangmasuk`
 --
 ALTER TABLE `tb_pbarangmasuk`
-  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_ruangan`
@@ -244,7 +267,7 @@ ALTER TABLE `tb_ruangan`
 -- AUTO_INCREMENT untuk tabel `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
