@@ -38,16 +38,17 @@
                     <div class="card-body">
                       <div class="text-center">
                         <img alt="<?php echo $barangs['nama_barang']; ?>" class="img img-fluid rounded" src="<?php if ($barangs['foto'] == NULL) {
-                                                                                                                  echo base_url('assets/uploads/barang/default.jpg');
-                                                                                                                } else {
-                                                                                                                  echo base_url('assets/uploads/barang/' . $barangs['foto']);
-                                                                                                                } ?>" style="width: 1000px; max-height: 800px">
+                                                                                                                echo base_url('assets/uploads/barang/default.jpg');
+                                                                                                              } else {
+                                                                                                                echo base_url('assets/uploads/barang/' . $barangs['foto']);
+                                                                                                              } ?>" style="width: 1000px; max-height: 800px">
                       </div>
 
                     </div>
                     <div class="card-footer text-center">
                       <a href="<?php echo base_url('barang/view/' . $barangs['id_barang']); ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                       <a href="<?php echo base_url('barang/edit/' . $barangs['id_barang']); ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                      <a href="<?php echo base_url('barang/qrcode/' . $barangs['id_barang']); ?>" class="btn btn-warning btn-sm"><i class="fa fa-qrcode"></i> QRCode</a>
                     </div>
                   </div>
                 </div>

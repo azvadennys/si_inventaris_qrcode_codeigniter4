@@ -25,12 +25,12 @@
 
 <!-- Page content -->
 <div class="container-fluid mt--6">
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <div class="card-wrapper">
         <div class="card">
           <div class="card-header">
-            <h3 class="mb-0">Data Barang</h3>
+            <h3 class="mb-0">QRCode Barang | <?= $barang->nama_barang ?></h3>
             <?php if ($flash) : ?>
               <span class="float-right text-success font-weight-bold" style="margin-top: -30px">
                 <?php echo $flash; ?>
@@ -38,95 +38,33 @@
             <?php endif; ?>
           </div>
           <div class="card-body p-0">
-            <div>
-              <img alt="<?php echo $barang->nama_barang; ?>" class="img img-fluid rounded" src="<?php if ($barang->foto == NULL) {
-                                                                                                  echo base_url('assets/uploads/barang/default.jpg');
-                                                                                                } else {
-                                                                                                  echo base_url('assets/uploads/barang/' . $barang->foto);
-                                                                                                }  ?>">
-            </div>
+            <input type="text" id="qr-data" value="<?= base_url('barang/view/' . $barang->id_barang); ?>" hidden>
+            <div id="qrcode" class="row justify-content-center">
 
+            </div>
+            <script src=<?= base_url('assets/qrcode.min.js'); ?>></script>
+            <script>
+              var qrdata = document.getElementById('qr-data');
+              var qrcode = new QRCode(document.getElementById('qrcode'));
+              var data = qrdata.value;
+              qrcode.makeCode(data);
+            </script>
             <table class="table table-hover table-striped">
               <tr>
-                <td>Nama Barang</td>
+                <td>Link URL</td>
                 <td>:</td>
-                <td><b><?php echo $barang->nama_barang; ?></b></td>
-              </tr>
-              <tr>
-                <td>Tahun</td>
-                <td>:</td>
-                <td><b><?php echo $barang->tahun; ?></b></td>
-              </tr>
-              <tr>
-                <td>Jumlah</td>
-                <td>:</td>
-                <td><b><?php echo $barang->jumlah; ?></b></td>
-              </tr>
-              <tr>
-                <td>Merek</td>
-                <td>:</td>
-                <td><b><?php echo $barang->merek; ?></b></td>
-              </tr>
-              <tr>
-                <td>Jenis</td>
-                <td>:</td>
-                <td><b><?php echo $barang->jenis; ?></b></td>
+                <td><b><a href="<?= base_url('barang/view/' . $barang->id_barang); ?>"><?= base_url('barang/view/' . $barang->id_barang); ?></a></td>
               </tr>
 
             </table>
           </div>
           <div class="card-footer text-right">
-            <a href="<?php echo base_url('barang/qrcode/' . $barang->id_barang); ?>" class="btn btn-info "><i class="fa fa-qrcode"></i> QRCode</a>
-            <a href="<?php echo base_url('barang/edit/' . $barang->id_barang); ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-            <a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-    <div class="col-md-8">
-      <div class="card card-primary">
-        <div class="card-header">
-          <h3 class="mb-0">Data Barang di Simpan</h3>
-        </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">NO</th>
-                  <th scope="col">Nama Barang</th>
-                  <th scope="col">Tahun Barang</th>
-                  <th scope="col">Jumlah Barang</th>
-                  <th scope="col">Penambah Barang</th>
-                </tr>
-              </thead>
-              <tbody>
-                <? //php $i = 1 
-                ?>
-                <? //php foreach ($barangs as $barang) : 
-                ?>
-                <tr>
-                  <th scope="col">
-                    <? //php echo $i++; 
-                    ?>
-                  </th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <? //php endforeach; 
-                ?>
-              </tbody>
-            </table>
+            <a href="<?php echo base_url('barang/view/' . $barang->id_barang); ?>" class="btn btn-primary"><i class="fa fa-eye"></i> Lihat Barang</a>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
@@ -153,7 +91,6 @@
       </div>
     </div>
   </div>
-
   <script>
     $('#deleteProductForm').submit(function(e) {
       e.preventDefault();

@@ -325,4 +325,20 @@ class Barang extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+    public function qrcode($id = 0)
+    {
+        if ($this->barang->is_barang_exist($id)) {
+            $data = $this->barang->barang_data($id);
+
+            $barang['title'] = $data->nama_barang . ' | Data barang ';
+
+            $barang['barang'] = $data;
+            $barang['flash'] = $this->session->getflashdata('product_flash');
+            // $barang['ruangans'] = $this->ruangan->rungan_in_barang($id);
+
+            return view('barang/qrcode', $barang);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
 }

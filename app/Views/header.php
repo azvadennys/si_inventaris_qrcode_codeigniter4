@@ -124,7 +124,12 @@ $query = $this->request->getGet('search_query');
                 </a>
               </div>
             </li>
-
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url('scan'); ?>">
+                <i class="fa fa-qrcode text-success"></i>
+                <span class="nav-link-text">Scan QRCode</span>
+              </a>
+            </li>
             <script>
 
             </script>

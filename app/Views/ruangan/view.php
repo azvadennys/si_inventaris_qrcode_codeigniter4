@@ -25,7 +25,7 @@
 
 <!-- Page content -->
 <div class="container-fluid mt--6">
-  <div class="row">
+  <div class="row align-content-center">
     <div class="col-md-4">
       <div class="card-wrapper">
         <div class="card">
