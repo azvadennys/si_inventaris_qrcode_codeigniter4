@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jun 2022 pada 03.12
+-- Waktu pembuatan: 16 Jun 2022 pada 00.02
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.0.13
 
@@ -44,8 +44,7 @@ CREATE TABLE `tb_barang` (
 --
 
 INSERT INTO `tb_barang` (`id_barang`, `id_user`, `id_ruangan`, `nama_barang`, `tahun`, `jumlah`, `merek`, `foto`, `jenis`) VALUES
-(1, 2, 9, 'Kursi', '2020', 231, 'Sony', 'WhatsApp Image 2022-06-06 at 13.33.17_3.jpeg', 'Kayu'),
-(3, 1, 9, 'Dadan', '2020', 123, 'fewfwefw', '24663379_A1.jpg', 'adsafawfw');
+(6, 1, 11, 'Kursi', '2020', 31, 'Sony', '24663379_A1_3.jpg', 'Kayu');
 
 -- --------------------------------------------------------
 
@@ -78,16 +77,17 @@ CREATE TABLE `tb_menyimpan` (
   `id_simpan` int(11) NOT NULL,
   `id_ruangan` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
-  `tgl_simpan` date NOT NULL
+  `tgl_simpan` date NOT NULL,
+  `barang_bagus` int(11) NOT NULL,
+  `barang_rusak` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tb_menyimpan`
 --
 
-INSERT INTO `tb_menyimpan` (`id_simpan`, `id_ruangan`, `id_barang`, `tgl_simpan`) VALUES
-(1, 9, 1, '2022-06-08'),
-(3, 9, 1, '2022-06-04');
+INSERT INTO `tb_menyimpan` (`id_simpan`, `id_ruangan`, `id_barang`, `tgl_simpan`, `barang_bagus`, `barang_rusak`) VALUES
+(6, 11, 6, '2022-06-16', 321, 321);
 
 -- --------------------------------------------------------
 
@@ -109,8 +109,7 @@ CREATE TABLE `tb_pbarangmasuk` (
 --
 
 INSERT INTO `tb_pbarangmasuk` (`id_pengadaan`, `id_supplier`, `id_barang`, `harga`, `jumlah`, `tgl_pembelian`) VALUES
-(2, 3, 1, 250000, 1, '2022-06-12'),
-(3, 3, 1, 250000, 3, '2022-06-30');
+(7, 6, 6, 25000, 241, '2022-06-16');
 
 -- --------------------------------------------------------
 
@@ -123,16 +122,18 @@ CREATE TABLE `tb_ruangan` (
   `id_gedung` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `nama_ruangan` varchar(20) NOT NULL,
-  `foto` varchar(250) NOT NULL
+  `foto` varchar(250) NOT NULL,
+  `kapasitas_ruangan` int(11) NOT NULL,
+  `terisi_ruangan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tb_ruangan`
 --
 
-INSERT INTO `tb_ruangan` (`id_ruangan`, `id_gedung`, `id_user`, `nama_ruangan`, `foto`) VALUES
-(8, 3, 1, 'ruangan 2', 'c2139d2057e604f8c9cb41c83434e234_14.jpg'),
-(9, 3, 1, 'ruangan 1', '24663379_A1.jpg');
+INSERT INTO `tb_ruangan` (`id_ruangan`, `id_gedung`, `id_user`, `nama_ruangan`, `foto`, `kapasitas_ruangan`, `terisi_ruangan`) VALUES
+(10, 3, 1, 'ruangan 2', '24663379_A1_1.jpg', 12, 12),
+(11, 3, 1, 'ruangan 1', '24663379_A1_2.jpg', 21, 12);
 
 -- --------------------------------------------------------
 
@@ -143,15 +144,17 @@ INSERT INTO `tb_ruangan` (`id_ruangan`, `id_gedung`, `id_user`, `nama_ruangan`, 
 CREATE TABLE `tb_supplier` (
   `id_supplier` int(11) NOT NULL,
   `nama_supplier` varchar(20) NOT NULL,
-  `kontak_supplier` int(20) NOT NULL
+  `kontak_supplier` int(20) NOT NULL,
+  `nama_toko` varchar(20) NOT NULL,
+  `alamat` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `tb_supplier`
 --
 
-INSERT INTO `tb_supplier` (`id_supplier`, `nama_supplier`, `kontak_supplier`) VALUES
-(3, 'sdad', 214748364);
+INSERT INTO `tb_supplier` (`id_supplier`, `nama_supplier`, `kontak_supplier`, `nama_toko`, `alamat`) VALUES
+(6, 'Wijaya', 2147483647, 'Toko Wijaya', 'Jalan veteran 2');
 
 -- --------------------------------------------------------
 
@@ -237,7 +240,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_gedung`
@@ -249,25 +252,25 @@ ALTER TABLE `tb_gedung`
 -- AUTO_INCREMENT untuk tabel `tb_menyimpan`
 --
 ALTER TABLE `tb_menyimpan`
-  MODIFY `id_simpan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_simpan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pbarangmasuk`
 --
 ALTER TABLE `tb_pbarangmasuk`
-  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_ruangan`
 --
 ALTER TABLE `tb_ruangan`
-  MODIFY `id_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_supplier`
 --
 ALTER TABLE `tb_supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
