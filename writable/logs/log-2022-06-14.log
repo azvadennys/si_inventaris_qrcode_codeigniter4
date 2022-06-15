@@ -774,3 +774,47 @@ CRITICAL - 2022-06-14 18:31:16 --> Undefined variable $title
 #9 C:\xampp\htdocs\si_inventaris_ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
 #10 C:\xampp\htdocs\si_inventaris_ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
 #11 {main}
+CRITICAL - 2022-06-14 19:13:31 --> Undefined variable $barang
+#0 C:\xampp\htdocs\si_inventaris_ci4\app\Views\qrcode\pdf.php(183): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 183)
+#1 C:\xampp\htdocs\si_inventaris_ci4\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\si_inventaris_ci4\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\si_inventaris_ci4\system\Common.php(1089): CodeIgniter\View\View->render('qrcode/pdf', Array, true)
+#4 C:\xampp\htdocs\si_inventaris_ci4\app\Controllers\Scan.php(37): view('qrcode/pdf', Array)
+#5 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(832): App\Controllers\Scan->pdf('3')
+#6 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scan))
+#7 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\si_inventaris_ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\si_inventaris_ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-06-14 19:13:52 --> Undefined property: App\Controllers\Scan::$dompdf
+#0 C:\xampp\htdocs\si_inventaris_ci4\app\Controllers\Scan.php(39): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined prope...', 'C:\\xampp\\htdocs...', 39)
+#1 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(832): App\Controllers\Scan->pdf('3')
+#2 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scan))
+#3 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\si_inventaris_ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#5 C:\xampp\htdocs\si_inventaris_ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+CRITICAL - 2022-06-14 19:44:33 --> Attempt to read property "id_barang" on null
+#0 C:\xampp\htdocs\si_inventaris_ci4\app\Views\qrcode\pdf.php(183): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 183)
+#1 C:\xampp\htdocs\si_inventaris_ci4\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\si_inventaris_ci4\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\si_inventaris_ci4\system\Common.php(1089): CodeIgniter\View\View->render('qrcode/pdf', Array, true)
+#4 C:\xampp\htdocs\si_inventaris_ci4\app\Controllers\Scan.php(40): view('qrcode/pdf', Array)
+#5 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(832): App\Controllers\Scan->pdf('dimension.png')
+#6 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scan))
+#7 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\si_inventaris_ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\si_inventaris_ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+CRITICAL - 2022-06-14 19:45:03 --> Attempt to read property "id_barang" on null
+#0 C:\xampp\htdocs\si_inventaris_ci4\app\Views\qrcode\pdf.php(183): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 183)
+#1 C:\xampp\htdocs\si_inventaris_ci4\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\si_inventaris_ci4\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\si_inventaris_ci4\system\Common.php(1089): CodeIgniter\View\View->render('qrcode/pdf', Array, true)
+#4 C:\xampp\htdocs\si_inventaris_ci4\app\Controllers\Scan.php(40): view('qrcode/pdf', Array)
+#5 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(832): App\Controllers\Scan->pdf('dimension.png')
+#6 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Scan))
+#7 C:\xampp\htdocs\si_inventaris_ci4\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\si_inventaris_ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\si_inventaris_ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}
