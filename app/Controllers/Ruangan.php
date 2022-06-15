@@ -50,10 +50,15 @@ class Ruangan extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
-
+        $search_query = $this->request->getGet('search_query');
+        if ($search_query) {
+            $ruangan = $this->ruangan->like('nama_ruangan', $search_query);
+        } else {
+            $ruangan = $this->ruangan;
+        }
         $data = [
             'title' => 'Kelola Ruangan',
-            'ruangan' => $this->ruangan->orderBy('nama_ruangan', 'ASC')->paginate(8, 'card'),
+            'ruangan' => $ruangan->orderBy('nama_ruangan', 'ASC')->paginate(8, 'card'),
             'pager' => $this->ruangan->pager
         ];
         return view('ruangan/ruangan', $data);

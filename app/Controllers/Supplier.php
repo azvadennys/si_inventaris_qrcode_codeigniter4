@@ -51,10 +51,15 @@ class Supplier extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
-
+        $search_query = $this->request->getGet('search_query');
+        if ($search_query) {
+            $supplier = $this->supplier->like('nama_supplier', $search_query);
+        } else {
+            $supplier = $this->supplier;
+        }
         $data = [
             'title' => 'Kelola Supplier',
-            'suppliers' => $this->supplier->orderBy('nama_supplier', 'ASC')->paginate(10, 'table'),
+            'suppliers' => $supplier->orderBy('nama_supplier', 'ASC')->paginate(10, 'table'),
             'flash' => $this->session->getFlashdata('flash'),
             'pager' => $this->supplier->pager
         ];

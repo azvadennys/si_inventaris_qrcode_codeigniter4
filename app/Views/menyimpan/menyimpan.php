@@ -54,7 +54,6 @@
                   <th scope="col">No</th>
                   <th scope="col">Nama Ruangan</th>
                   <th scope="col">Nama Barang</th>
-                  <th scope="col">Tahun</th>
                   <th scope="col">Merek</th>
                   <th scope="col">Tanggal Simpan</th>
                   <th class="text-right">Aksi</th>
@@ -70,9 +69,6 @@
                     <td><?php echo $penyimpanan['nama_ruangan']; ?></td>
                     <td>
                       <?php echo $penyimpanan['nama_barang']; ?>
-                    </td>
-                    <td>
-                      <?php echo $penyimpanan['tahun']; ?>
                     </td>
                     <td>
                       <?php echo $penyimpanan['merek']; ?>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use Dompdf\Dompdf;
 use App\Models\Barang_model;
 use App\Models\Supplier_model;
@@ -50,14 +51,21 @@ class BarangMasuk extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
-
+        $search_query = $this->request->getGet('search_query');
+        if ($search_query) {
+            $barang = $this->masuk->select('tb_pbarangmasuk.*,s.nama_supplier, b.nama_barang')
+                ->join('tb_barang b', 'b.id_barang = tb_pbarangmasuk.id_barang')
+                ->join('tb_supplier s', 'tb_pbarangmasuk.id_supplier = s.id_supplier')->like('nama_supplier', $search_query)->orlike('nama_barang', $search_query);
+        } else {
+            $barang = $this->masuk->select('tb_pbarangmasuk.*,s.nama_supplier, b.nama_barang')
+                ->join('tb_barang b', 'b.id_barang = tb_pbarangmasuk.id_barang')
+                ->join('tb_supplier s', 'tb_pbarangmasuk.id_supplier = s.id_supplier');
+        }
         $data = [
             'title' => 'Kelola Barang Masuk',
             // 'ruangans' => $this->ruangan->get_all_nama_ruangan(),
             // 'barangs' => $this->barang->get_all_nama_barang(),
-            'barangmasuks' => $this->masuk->select('tb_pbarangmasuk.*,s.nama_supplier, b.nama_barang')
-                ->join('tb_barang b', 'b.id_barang = tb_pbarangmasuk.id_barang')
-                ->join('tb_supplier s', 'tb_pbarangmasuk.id_supplier = s.id_supplier')->orderBy('tgl_pembelian', 'DESC')->paginate(10, 'table'),
+            'barangmasuks' => $barang->orderBy('tgl_pembelian', 'DESC')->paginate(10, 'table'),
             'flash' => $this->session->getFlashdata('flash'),
             'pager' => $this->masuk->pager
         ];

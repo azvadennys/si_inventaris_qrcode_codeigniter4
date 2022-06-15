@@ -52,14 +52,21 @@ class Penyimpanan extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
-
+        $search_query = $this->request->getGet('search_query');
+        if ($search_query) {
+            $penyimpanan = $this->penyimpanan->select('id_simpan,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
+                ->join('tb_barang b', 'b.id_barang = tb_menyimpan.id_barang')
+                ->join('tb_ruangan r', 'b.id_ruangan = r.id_ruangan')->like('nama_barang', $search_query)->orlike('tahun', $search_query);
+        } else {
+            $penyimpanan = $this->penyimpanan->select('id_simpan,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
+                ->join('tb_barang b', 'b.id_barang = tb_menyimpan.id_barang')
+                ->join('tb_ruangan r', 'b.id_ruangan = r.id_ruangan');
+        }
         $data = [
             'title' => 'Kelola Penyimpanan',
             // 'ruangans' => $this->ruangan->get_all_nama_ruangan(),
             // 'barangs' => $this->barang->get_all_nama_barang(),
-            'penyimpanans' => $this->penyimpanan->select('id_simpan,tgl_simpan, b.nama_barang, tahun, merek, r.nama_ruangan')
-                ->join('tb_barang b', 'b.id_barang = tb_menyimpan.id_barang')
-                ->join('tb_ruangan r', 'b.id_ruangan = r.id_ruangan')->orderBy('tgl_simpan', 'DESC')->paginate(10, 'table'),
+            'penyimpanans' => $penyimpanan->orderBy('tgl_simpan', 'DESC')->paginate(10, 'table'),
             'flash' => $this->session->getFlashdata('flash'),
             'pager' => $this->penyimpanan->pager
         ];

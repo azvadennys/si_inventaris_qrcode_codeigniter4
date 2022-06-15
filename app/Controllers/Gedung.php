@@ -50,10 +50,15 @@ class Gedung extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
-
+        $search_query = $this->request->getGet('search_query');
+        if ($search_query) {
+            $gedung = $this->gedung->like('nama_gedung', $search_query);
+        } else {
+            $gedung = $this->gedung;
+        }
         $data = [
             'title' => 'Kelola Gedung',
-            'gedung' => $this->gedung->orderBy('nama_gedung', 'ASC')->paginate(8, 'card'),
+            'gedung' => $gedung->orderBy('nama_gedung', 'ASC')->paginate(8, 'card'),
             'pager' => $this->gedung->pager
         ];
         return view('gedung/gedung', $data);

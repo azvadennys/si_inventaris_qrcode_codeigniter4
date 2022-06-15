@@ -29,10 +29,15 @@ class Barang extends BaseController
             return redirect()->to(base_url('auth'));
         }
         $pager = \Config\Services::pager();
-
+        $search_query = $this->request->getGet('search_query');
+        if ($search_query) {
+            $barang = $this->barang->like('nama_barang', $search_query)->orlike('tahun', $search_query);
+        } else {
+            $barang = $this->barang;
+        }
         $data = [
             'title' => 'Kelola Barang',
-            'barang' => $this->barang->orderBy('nama_barang', 'ASC')->paginate(8, 'card'),
+            'barang' => $barang->orderBy('nama_barang', 'ASC')->paginate(8, 'card'),
             'pager' => $this->barang->pager
         ];
         return view('barang/barang', $data);

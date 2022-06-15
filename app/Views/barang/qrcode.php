@@ -48,8 +48,6 @@
               var qrcode = new QRCode(document.getElementById('qrcode'));
               var data = qrdata.value;
               qrcode.makeCode(data);
-              link.download = "test.png";
-              link.href = data.toDataURL("image/png").replace("image/png", "image/octet-stream");
             </script>
             <table class="table table-hover table-striped">
               <tr>
